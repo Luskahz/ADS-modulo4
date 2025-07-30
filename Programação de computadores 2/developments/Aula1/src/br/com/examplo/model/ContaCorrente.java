@@ -13,10 +13,11 @@ public class ContaCorrente extends Conta {
     @Override
     public void sacar(double valor) throws SaldoInsuficienteException {
 
-        if (valor > super.saldo) {
+        if (valor > super.getSaldo()) {
             throw new SaldoInsuficienteException("Sem saldo suficiente para realizar a acao de sacar...");
         } else {
-            super.saldo = super.saldo - valor;
+           double newSaldo = super.getSaldo()- valor;
+           super.setSaldo(newSaldo);
 
         }
 

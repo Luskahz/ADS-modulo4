@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.com.examplo.model;
+
 import java.nio.file.*;
 
 /**
@@ -16,28 +17,47 @@ public abstract class Conta {
         this.titular = titular;
         this.saldo = saldo;
     }
-    
 
     int numero;
     String titular;
     double saldo;
 
+    public int getNumero() {
+        return numero;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     public abstract void sacar(double valor) throws SaldoInsuficienteException;
 
     public void depositar(double valor) {
-        this.saldo  = this.saldo + valor;
+        this.saldo = this.saldo + valor;
     }
 
-    public void imprimirDados() {
+    public String imprimirDados() {
         System.out.println("""
                            Dados da conta: 
                            Numero: """ + this.numero + "\nTitular: " + this.titular + "Saldo: " + this.saldo + "\n\n");
+        return " Numero:" + this.numero + "\nTitular: " + this.titular + "Saldo: " + this.saldo + "\n\n";
 
     }
-    
-    
-    
-}
-    
-    
+
 }
