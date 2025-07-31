@@ -55,8 +55,8 @@ public abstract class Conta {
     public String imprimirDados() {
         System.out.println("""
                            Dados da conta: 
-                           Numero: """ + this.numero + "\nTitular: " + this.titular + "Saldo: " + this.saldo + "\n\n");
-        return " Numero:" + this.numero + "\nTitular: " + this.titular + "Saldo: " + this.saldo + "\n\n";
+                           Numero: """ + this.numero + "Titular: " + this.titular + "Saldo: " + this.saldo + "\n\n");
+        return "Numero:" + this.numero + "Titular: " + this.titular + "Saldo: " + this.saldo + "\n";
 
     }
 

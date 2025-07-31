@@ -8,7 +8,7 @@ package br.com.examplo.model;
  *
  * @author cg3034186
  */
-class SaldoInsuficienteException extends Exception {
+public class SaldoInsuficienteException extends Exception {
 
     public SaldoInsuficienteException(String mensagem) {
         super(mensagem);

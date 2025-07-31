@@ -5,6 +5,7 @@
 package br.com.exemplo.app;
 
 import br.com.examplo.model.ContaCorrente;
+import br.com.examplo.model.SaldoInsuficienteException;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
@@ -21,21 +22,45 @@ public class main {
      */
     public static void main(String[] args) throws IOException {
         Path caminho = Paths.get("conta.txt");
-        List<String> linhas = Files.readAllLines(caminho);
-         String conta = linhas.get(0);
-         String[] dados = conta.split(",");
-         
-         
-         int numero = Integer.parseInt(dados[0].trim());
-         String titular = dados[1].trim();
-         double saldo = Double.parseDouble(dados[2].trim());
-         
-         ContaCorrente c = new ContaCorrente(numero, titular, saldo);
-         
-         Scanner sc = new Scanner(System.in);
-         
-         System.out.println("escreva um valor para saque:");
-         sca
-    }
+        Path caminho_update = Paths.get("conta_atualizações.txt");
+        List<String> linhas = null;
+        try {
+            linhas = Files.readAllLines(caminho);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        String conta = linhas.get(0);
+        String[] dados = conta.split(",");
+
+        int numero = Integer.parseInt(dados[0].trim());
+        String titular = dados[1].trim();
+        double saldo = Double.parseDouble(dados[2].trim());
+
+        ContaCorrente c = new ContaCorrente(numero, titular, saldo);
+
+        Scanner sc = new Scanner(System.in);
+        double valor = 0.0;
+        while (valor >= 0.0) {
+            System.out.println("escreva um valor para saque:");
+            valor = sc.nextDouble();
+
+            try {
+                c.sacar(valor);
+            } catch (SaldoInsuficienteException e) {
+                System.out.println(e.getMessage());
+            }
+
+            String update = c.imprimirDados();
+            try {
+                Files.write(caminho_update, update.getBytes(), StandardOpenOption.APPEND);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
 
     }
+
+}
