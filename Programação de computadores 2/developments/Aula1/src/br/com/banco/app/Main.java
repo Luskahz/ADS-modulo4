@@ -4,7 +4,7 @@
  */
 package br.com.banco.app;
 
-import br.com.banco.view.InterfaceEdicaoContaGUI;
+import br.com.banco.view.PatchContasGUI;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new InterfaceEdicaoContaGUI().setVisible(true);
+                new PatchContasGUI().setVisible(true);
             }
         });
     }

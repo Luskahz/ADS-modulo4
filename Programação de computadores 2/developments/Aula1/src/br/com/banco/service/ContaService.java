@@ -2,16 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.examplo.model;
+package br.com.banco.service;
 
 /**
  *
- * @author cg3034186
+ * @author lucas
  */
-public class SaldoInsuficienteException extends Exception {
-
-    public SaldoInsuficienteException(String mensagem) {
-        super(mensagem);
-    }
-
+public class ContaService {
+    
 }

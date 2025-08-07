@@ -8,23 +8,26 @@ import br.com.banco.exceptions.SaldoInsuficienteException;
 
 public class ContaCorrente extends Conta {
 
-    public ContaCorrente(String numero_parametro, String titular, String saldo_parametro) {
-        int numero = Integer.parseInt(numero_parametro);
-        double saldo = Double.parseDouble(saldo_parametro);
-        
+    public ContaCorrente(int numero, String titular, double saldo) {
         super(numero, titular, saldo);
+        //criar logica de inseção de dados no cache
     }
 
     @Override
     public void sacar(double valor) throws SaldoInsuficienteException {
-
         if (valor > super.getSaldo()) {
             throw new SaldoInsuficienteException("Sem saldo suficiente para realizar a acao de sacar...");
         } else {
-           double newSaldo = super.getSaldo()- valor;
-           super.setSaldo(newSaldo);
+            double newSaldo = super.getSaldo() - valor;
+            super.setSaldo(newSaldo);
 
         }
+
+    }
+
+    public void deposita(double valor) {
+        double newSaldo = super.getSaldo() - valor;
+        super.setSaldo(newSaldo);
 
     }
 
