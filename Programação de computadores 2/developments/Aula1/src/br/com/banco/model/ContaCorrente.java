@@ -25,10 +25,4 @@ public class ContaCorrente extends Conta {
 
     }
 
-    public void deposita(double valor) {
-        double newSaldo = super.getSaldo() - valor;
-        super.setSaldo(newSaldo);
-
-    }
-
 }
