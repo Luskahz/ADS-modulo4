@@ -1,6 +1,0 @@
-Numero:1Titular: lucasSaldo: 71.0
-Numero:1Titular: lucasSaldo: 90.0
-Numero:1Titular: lucasSaldo: 90.0
-Numero:1Titular: lucasSaldo: 80.0
-Numero:1Titular: lucasSaldo: 75.0
-Numero:1Titular: lucasSaldo: 55.0

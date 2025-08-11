@@ -4,76 +4,99 @@
  */
 package br.com.bank.model;
 
+import br.com.bank.exceptions.InvalidInputException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  *
  * @author lucas
  */
-public class Bank {
+public final class Bank {
 
-    private Map<Integer, AccountCurent> account;
+    //Attributes
+    private final Map<Integer, AccountCurrent> bank;
+    private final Path filepath;
 
-    public void addAccount(AccountCurent conta) {
-        account.put(conta.getNumero(), conta);
+    //Constructor
+    public Bank(Path path) throws IOException {
+        this.bank = new HashMap<>();
+        this.filepath = path;
+
+        if (Files.exists(path)) {
+            refreshAllAccountsWithFile();
+        } else {
+            if (path.getParent() != null) {
+                Files.createDirectories(path.getParent());
+            }
+            Files.createFile(path);
+
+        }
     }
 
-    public Bank(Map<Integer, AccountCurent> contas) {
-        this.account = contas;
+    public Bank() {
+        this.bank = new HashMap<>();
+        this.filepath = null;
     }
 
-    public Account getAccountByNumber(int numeroConta) {
-        return account.get(numeroConta);
+    //Getters
+    public int getSize() {
+        return bank.size();
     }
 
-    public Map<Integer, AccountCurent> getAllAccounts() {
-        return account;
+    public AccountCurrent getAccountById(int accountId) {
+        return bank.get(accountId); //retorna a referencia na memoria;
     }
 
-    public int howMuchAccounts() {
-        return account.size();
+    public Map<Integer, AccountCurrent> getAllAccounts() {
+        return Collections.unmodifiableMap(bank); // o cara que importar isso n vai poder alterar a poha do seu ponteiro 
     }
 
-    public void saveAccountsInCache() throws IOException {
+    //Setters
+    public void addAccount(AccountCurrent account) throws InvalidInputException {
+        if (bank.containsKey(account.getId())) {
+        throw new InvalidInputException("Já existe uma conta com esse ID.");
+    }
+        bank.put(account.getId(), account);
+    }
+
+    //Methods
+    public void saveAllAccountstToFile() throws IOException {
         //define o path e o stringbuilder
-        Path path = Paths.get("Accounts.txt");
+
         StringBuilder sb = new StringBuilder();
 
         // cria o string de contas que vai ficar no cache, bem merda msm uma hora vai dar crash na memoriakk
-        for (Map.Entry<Integer, AccountCurent> entry : account.entrySet()) {
-            AccountCurent conta = entry.getValue();
+        for (Map.Entry<Integer, AccountCurrent> entry : bank.entrySet()) {
+            AccountCurrent conta = entry.getValue();
 
-            sb.append(conta.getNumero()).append(";");
-            sb.append(conta.getTitular()).append(";");
-            sb.append(conta.getSaldo()).append(";");
+            sb.append(conta.getId()).append(";");
+            sb.append(conta.getHolder()).append(";");
+            sb.append(conta.getBalance()).append(";\n");
         }
 
-        Files.writeString(path, sb.toString(), StandardOpenOption.TRUNCATE_EXISTING);
+        Files.writeString(this.filepath, sb.toString(), StandardOpenOption.TRUNCATE_EXISTING);
 
     }
 
-    public void refreshAllAcountsFromCache() throws IOException {
-        Path path = Paths.get("Accounts.txt");
-        account.clear();
+    public void refreshAllAccountsWithFile() throws IOException {
+        Map<Integer, AccountCurrent> tmp = new HashMap<>();
+        for (String line : Files.readAllLines(filepath)) {
+            String[] parts = line.split(";");
+            int id = Integer.parseInt(parts[0]);
+            double balance = Double.parseDouble(parts[2]);
 
-        List<String> linhas = Files.readAllLines(path);
-
-        for (String linha : linhas) {
-            String[] partes = linha.split(";");
-            int numero = Integer.parseInt(partes[0]);
-            double saldo = Double.parseDouble(partes[2]);
-
-            AccountCurent conta = new AccountCurent(numero, partes[1], saldo);
-            addAccount(conta);
-
+            AccountCurrent conta = new AccountCurrent(id, parts[1], balance);
+            tmp.put(id, conta);
         }
 
+        bank.clear();
+        bank.putAll(tmp);
     }
 
 }

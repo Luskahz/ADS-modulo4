@@ -4,7 +4,7 @@
  */
 package br.com.bank.model;
 
-import br.com.bank.exceptions.SaldoInsuficienteException;
+import br.com.bank.exceptions.InsufficientBalanceException;
 import java.nio.file.*;
 
 /**
@@ -13,49 +13,51 @@ import java.nio.file.*;
  */
 public abstract class Account {
 
-    int numero;
-    String titular;
-    double saldo;
+    int id;
+    String holder;
+    double balance;
 
     //construtor
     public Account(int numero, String titular, double saldo) {
-        this.numero = numero;
-        this.titular = titular;
-        this.saldo = saldo;
+        this.id = numero;
+        this.holder = titular;
+        this.balance = saldo;
     }
+
     // getters
-    public int getNumero() {
-        return numero;
+    public int getId() {
+        return id;
     }
-    public String getTitular() {
-        return titular;
+
+    public String getHolder() {
+        return holder;
     }
-    public double getSaldo() {
-        return saldo;
+
+    public double getBalance() {
+        return balance;
     }
 
     //setters
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-    public void setTitular(String titular) {
-        this.titular = titular;
-    }
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public abstract void sacar(double valor) throws SaldoInsuficienteException;
-
-    public void depositar(double valor) {
-        this.saldo = this.saldo + valor;
+    public void setHolder(String holder) {
+        this.holder = holder;
     }
 
-    public String imprimirDados() {
-        System.out.println("""
-                           Dados da conta: 
-                           Numero: """ + this.numero + "Titular: " + this.titular + "Saldo: " + this.saldo + "\n\n");
-        return "Numero:" + this.numero + "Titular: " + this.titular + "Saldo: " + this.saldo + "\n";
+    public void setBalance(double value) {
+        this.balance = value;
+    }
+
+    public abstract void withdraw(double value) throws InsufficientBalanceException;
+
+    public void deposit(double value) {
+        this.balance = this.balance + value;
+    }
+
+    public String getAccountFormated() {
+        return this.id + ";" + this.holder + ";" + this.balance + ";\n";
 
     }
 

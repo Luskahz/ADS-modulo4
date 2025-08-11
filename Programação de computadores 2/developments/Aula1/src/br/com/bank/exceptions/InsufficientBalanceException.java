@@ -8,10 +8,10 @@ package br.com.bank.exceptions;
  *
  * @author cg3034186
  */
-public class SaldoInsuficienteException extends Exception {
+public class InsufficientBalanceException extends Exception {
 
-    public SaldoInsuficienteException(String mensagem) {
-        super(mensagem);
+    public InsufficientBalanceException(String message) {
+        super(message);
     }
 
 }
