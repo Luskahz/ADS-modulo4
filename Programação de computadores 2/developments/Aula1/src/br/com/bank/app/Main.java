@@ -5,7 +5,8 @@
 package br.com.bank.app;
 
 import br.com.bank.model.Bank;
-import br.com.bank.view.EditAccountGUI;
+import br.com.bank.service.AccountService;
+
 import br.com.bank.view.HomePageGUI;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -36,8 +37,8 @@ public class Main {
                 );
                 bank = new Bank();
             }
-
-            HomePageGUI home = new HomePageGUI(bank);
+            AccountService service = new AccountService();
+            HomePageGUI home = new HomePageGUI(bank, service);
             home.setVisible(true);
 
         }

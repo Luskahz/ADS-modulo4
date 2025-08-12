@@ -5,6 +5,7 @@
 package br.com.bank.view;
 
 import br.com.bank.model.Bank;
+import br.com.bank.service.AccountService;
 import java.util.Objects;
 import javax.swing.JFrame;
 
@@ -15,17 +16,14 @@ import javax.swing.JFrame;
 public class HomePageGUI extends javax.swing.JFrame {
 
     private final Bank bank;
+    private final AccountService service;
 
-    public HomePageGUI(Bank bank) {
+    public HomePageGUI(Bank bank, AccountService service) {
         this.bank = Objects.requireNonNull(bank, "Bank can't be null");
+        this.service = service;
 
         initComponents();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public HomePageGUI() {
-        this.bank = new Bank();
-        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -87,42 +85,11 @@ public class HomePageGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bntCreateAccountActionPerformed
 
     private void btnListAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListAccountsActionPerformed
-        ListAccountsGUI dialog = new ListAccountsGUI(this, true, bank);
+        ListAccountsGUI dialog = new ListAccountsGUI(this, true, bank, service);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnListAccountsActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomePageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomePageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomePageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomePageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomePageGUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCreateAccount;
