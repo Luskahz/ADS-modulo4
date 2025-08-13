@@ -35,6 +35,7 @@ public class HomePageGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         bntCreateAccount = new javax.swing.JButton();
         btnListOfAccounts = new javax.swing.JButton();
+        btnAnalytics = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("home");
@@ -51,7 +52,7 @@ public class HomePageGUI extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 150));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 100));
 
         bntCreateAccount.setText("Create Account");
         bntCreateAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +70,9 @@ public class HomePageGUI extends javax.swing.JFrame {
         });
         jPanel2.add(btnListOfAccounts);
 
+        btnAnalytics.setText("Analytics");
+        jPanel2.add(btnAnalytics);
+
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -79,7 +83,7 @@ public class HomePageGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLeaveFromApplication
 
     private void bntCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCreateAccountActionPerformed
-        CreateAccountGUI dialog = new CreateAccountGUI(this, true, bank);
+        CreateAccountGUI1 dialog = new CreateAccountGUI1(this, true, bank);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_bntCreateAccountActionPerformed
@@ -93,6 +97,7 @@ public class HomePageGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCreateAccount;
+    private javax.swing.JButton btnAnalytics;
     private javax.swing.JButton btnListOfAccounts;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;

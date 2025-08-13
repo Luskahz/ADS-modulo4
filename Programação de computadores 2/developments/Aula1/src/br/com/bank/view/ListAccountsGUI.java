@@ -5,9 +5,15 @@
 package br.com.bank.view;
 
 import br.com.bank.exceptions.InvalidInputException;
+import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
+import java.awt.Component;
+import java.util.Map;
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,7 +31,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         super(parent, modal);
         this.bank = bank;
         this.service = service;
-        
+
         initComponents();
         getRootPane().registerKeyboardAction(
                 e -> dispose(),
@@ -35,13 +41,25 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         javax.swing.JButton bnt = new javax.swing.JButton("Exemplo de conta");
 
         listContainer.removeAll();
-        try{
-            service.listAccounts(bank);
-            
-        } catch(InvalidInputException e){
-            
+        try {
+            Map<Integer, AccountCurrent> accounts = service.listAccounts(bank);
+            accounts.forEach((id, account) -> {
+                JButton btn = new JButton("Account " + id + " - " + account.getHolder());
+                btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+                btn.addActionListener(ev -> {
+                    
+                });
+
+                listContainer.add(btn);
+                listContainer.add(Box.createVerticalStrut(8));
+            });
+        } catch (InvalidInputException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
         }
-    }   
+        listContainer.revalidate();
+        listContainer.repaint();
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

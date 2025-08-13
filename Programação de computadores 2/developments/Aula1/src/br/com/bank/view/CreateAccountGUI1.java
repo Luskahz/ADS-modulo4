@@ -16,14 +16,14 @@ import javax.swing.JOptionPane;
  *
  * @author lucas
  */
-public class CreateAccountGUI extends javax.swing.JDialog {
+public class CreateAccountGUI1 extends javax.swing.JDialog {
 
     private final Bank bank;
 
     /**
      * Creates new form CreateAccountGUI
      */
-    public CreateAccountGUI(java.awt.Frame parent, boolean modal, Bank bank) {
+    public CreateAccountGUI1(java.awt.Frame parent, boolean modal, Bank bank) {
         super(parent, modal);
         this.bank = bank;
         initComponents();
@@ -32,16 +32,6 @@ public class CreateAccountGUI extends javax.swing.JDialog {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
-
-    private CreateAccountGUI(JFrame jFrame, boolean b) {
-        initComponents();
-        this.bank = new Bank();
-        getRootPane().registerKeyboardAction(
-                e -> dispose(),
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
-                javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -197,7 +187,7 @@ public class CreateAccountGUI extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Account Added with sucess");
             dispose();
         } catch (InvalidInputException ex) {
-            Logger.getLogger(CreateAccountGUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateAccountGUI1.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -214,44 +204,6 @@ public class CreateAccountGUI extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CreateAccountGUI dialog = new CreateAccountGUI(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

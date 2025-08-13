@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/view/CreateAccountGUI1.java</file>
+            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/view/EditAccountGUI.java</file>
             <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/view/HomePageGUI.java</file>
             <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/model/Bank.java</file>
-            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/view/ListAccountsGUI.java</file>
             <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/app/Main.java</file>
-            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/service/AccountService.java</file>
-            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/model/Account.java</file>
-            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/view/CreateAccountGUI.java</file>
+            <file>file:/C:/Users/cg3034186/Documents/NetBeansProjects/Aula1/src/br/com/bank/view/EditAccountGUI1.java</file>
         </group>
     </open-files>
 </project-private>
