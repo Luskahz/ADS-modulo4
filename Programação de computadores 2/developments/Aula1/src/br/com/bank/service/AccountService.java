@@ -101,4 +101,10 @@ public class AccountService {
 
     }
 
+    public void saveAccounts(Bank bank) throws IOException, InvalidInputException{
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to save in to file");
+        }
+        bank.saveAllAccountstToFile();
+    }
 }

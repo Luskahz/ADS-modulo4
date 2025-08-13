@@ -4,6 +4,7 @@
  */
 package br.com.bank.app;
 
+import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
 
@@ -11,6 +12,8 @@ import br.com.bank.view.HomePageGUI;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +26,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        AccountService service = new AccountService();
         javax.swing.SwingUtilities.invokeLater(() -> {
             Bank bank = null;
             try {
@@ -37,12 +41,16 @@ public class Main {
                 );
                 bank = new Bank();
             }
-            AccountService service = new AccountService();
+            
             HomePageGUI home = new HomePageGUI(bank, service);
             home.setVisible(true);
-
-        }
-        );
+            
+            try{
+                service.saveAccounts(bank);
+            }catch(IOException | InvalidInputException e){
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
 }

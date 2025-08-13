@@ -12,8 +12,9 @@ import java.awt.Component;
 import java.util.Map;
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -37,27 +38,31 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                 e -> dispose(),
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
-        listContainer.setLayout(new javax.swing.BoxLayout(listContainer, javax.swing.BoxLayout.Y_AXIS));
+        listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
         javax.swing.JButton bnt = new javax.swing.JButton("Exemplo de conta");
 
-        listContainer.removeAll();
+        listAccountsPanel.removeAll();
         try {
             Map<Integer, AccountCurrent> accounts = service.listAccounts(bank);
             accounts.forEach((id, account) -> {
                 JButton btn = new JButton("Account " + id + " - " + account.getHolder());
                 btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+                btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, btn.getPreferredSize().height));
+                btn.setHorizontalAlignment(SwingConstants.LEFT);
                 btn.addActionListener(ev -> {
                     
                 });
 
-                listContainer.add(btn);
-                listContainer.add(Box.createVerticalStrut(8));
+                listAccountsPanel.add(btn);
+                listAccountsPanel.add(Box.createVerticalStrut(8));
             });
         } catch (InvalidInputException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
         }
-        listContainer.revalidate();
-        listContainer.repaint();
+        listAccountsPanel.revalidate();
+        listAccountsPanel.repaint();
+        
+        voltarBtn.addActionListener(e -> dispose());
 
     }
 
@@ -70,44 +75,90 @@ public class ListAccountsGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listContainer = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
+        voltarBtn = new javax.swing.JButton();
+        conteiner = new javax.swing.JPanel();
+        containerHeader = new javax.swing.JPanel();
+        searchAccountTxt = new javax.swing.JTextField();
+        conteinerContent = new javax.swing.JPanel();
+        conteinerScrollList = new javax.swing.JScrollPane();
+        listAccountsPanel = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("List Account");
         setResizable(false);
         setSize(new java.awt.Dimension(480, 360));
 
-        listContainer.setName("listContainer"); // NOI18N
-        listContainer.setLayout(new javax.swing.BoxLayout(listContainer, javax.swing.BoxLayout.Y_AXIS));
-        jScrollPane1.setViewportView(listContainer);
+        header.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        voltarBtn.setText("Voltar");
+        header.add(voltarBtn);
+
+        getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
+
+        conteiner.setLayout(new java.awt.BorderLayout());
+
+        searchAccountTxt.setForeground(new java.awt.Color(120, 120, 120));
+        searchAccountTxt.setText("Search Account");
+        searchAccountTxt.setPreferredSize(new java.awt.Dimension(390, 26));
+        searchAccountTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchAccountTxtActionPerformed(evt);
+            }
+        });
+        containerHeader.add(searchAccountTxt);
+
+        conteiner.add(containerHeader, java.awt.BorderLayout.PAGE_START);
+
+        listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        jButton1.setText("jButton1");
+        listAccountsPanel.add(jButton1);
+
+        conteinerScrollList.setViewportView(listAccountsPanel);
+
+        javax.swing.GroupLayout conteinerContentLayout = new javax.swing.GroupLayout(conteinerContent);
+        conteinerContent.setLayout(conteinerContentLayout);
+        conteinerContentLayout.setHorizontalGroup(
+            conteinerContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conteinerContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(conteinerScrollList, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+        conteinerContentLayout.setVerticalGroup(
+            conteinerContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conteinerContentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(conteinerScrollList, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        conteiner.add(conteinerContent, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(conteiner, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchAccountTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchAccountTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchAccountTxtActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel listContainer;
+    private javax.swing.JPanel containerHeader;
+    private javax.swing.JPanel conteiner;
+    private javax.swing.JPanel conteinerContent;
+    private javax.swing.JScrollPane conteinerScrollList;
+    private javax.swing.JPanel header;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel listAccountsPanel;
+    private javax.swing.JTextField searchAccountTxt;
+    private javax.swing.JButton voltarBtn;
     // End of variables declaration//GEN-END:variables
 }

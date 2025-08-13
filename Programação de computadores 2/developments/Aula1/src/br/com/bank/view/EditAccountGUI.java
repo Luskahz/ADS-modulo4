@@ -4,18 +4,25 @@
  */
 package br.com.bank.view;
 
+import br.com.bank.model.AccountCurrent;
+import br.com.bank.model.Bank;
+
 /**
  *
  * @author cg3034186
  */
 public class EditAccountGUI extends javax.swing.JDialog {
-
-    /**
-     * Creates new form EditAccountGUI2
-     */
-    public EditAccountGUI(java.awt.Frame parent, boolean modal) {
+    
+    private final Bank bank;
+    private final AccountCurrent account;
+    
+    public EditAccountGUI(java.awt.Frame parent, boolean modal, AccountCurrent account, Bank bank) {
         super(parent, modal);
+        this.bank = bank;
+        this.account = account;
         initComponents();
+        
+        
     }
 
     /**
@@ -29,37 +36,34 @@ public class EditAccountGUI extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
-        Voltar = new javax.swing.JButton();
+        VoltarBtn = new javax.swing.JButton();
         Center = new javax.swing.JPanel();
         container = new javax.swing.JPanel();
         accountInformationsPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        accountInformationsHeader = new javax.swing.JPanel();
+        accountInformationsLabel = new javax.swing.JLabel();
+        accountInformationsContent = new javax.swing.JPanel();
         accountIdLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         atualBalanceLabel = new javax.swing.JLabel();
         holderLabel = new javax.swing.JLabel();
+        holderTxt = new javax.swing.JTextArea();
+        holderTxt1 = new javax.swing.JTextArea();
+        holderTxt2 = new javax.swing.JTextArea();
         operationsInAccountPanel = new javax.swing.JPanel();
         withdrawPanel = new javax.swing.JPanel();
         withdrawHeader = new javax.swing.JPanel();
-        withdraw = new javax.swing.JLabel();
+        withdrawLabel = new javax.swing.JLabel();
         withdrawContent = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        insertAmountLabel = new javax.swing.JLabel();
         withdrawAmountTxt = new javax.swing.JTextField();
-        withdrawBtn = new javax.swing.JButton();
+        withdrawConfirmBtn = new javax.swing.JButton();
         depositPanel = new javax.swing.JPanel();
         depositHeader = new javax.swing.JPanel();
-        depositLabelHeader = new javax.swing.JLabel();
+        depositLabel = new javax.swing.JLabel();
         depositContent = new javax.swing.JPanel();
         depositAmountLabel = new javax.swing.JLabel();
         depositAmountTxt = new javax.swing.JTextField();
-        depositBtn = new javax.swing.JButton();
+        depositConfirmBtn = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -76,89 +80,84 @@ public class EditAccountGUI extends javax.swing.JDialog {
 
         Header.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
 
-        Voltar.setText("Voltar");
-        Header.add(Voltar);
+        VoltarBtn.setText("Voltar");
+        Header.add(VoltarBtn);
 
         getContentPane().add(Header, java.awt.BorderLayout.PAGE_START);
 
         Center.setLayout(new java.awt.GridLayout(2, 2));
 
-        container.setLayout(new java.awt.GridLayout());
+        container.setLayout(new java.awt.GridLayout(1, 0));
 
         accountInformationsPanel.setLayout(new java.awt.BorderLayout());
 
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 30, 5);
         flowLayout1.setAlignOnBaseline(true);
-        jPanel1.setLayout(flowLayout1);
+        accountInformationsHeader.setLayout(flowLayout1);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Account Informations:");
-        jPanel1.add(jLabel1);
+        accountInformationsLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        accountInformationsLabel.setText("Account Informations:");
+        accountInformationsHeader.add(accountInformationsLabel);
 
-        accountInformationsPanel.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        accountInformationsPanel.add(accountInformationsHeader, java.awt.BorderLayout.PAGE_START);
 
         accountIdLabel.setText("Account ID:");
-
-        jScrollPane1.setEnabled(false);
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jTextArea3.setEditable(false);
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setEnabled(false);
-        jScrollPane3.setViewportView(jTextArea3);
-
-        jScrollPane2.setEnabled(false);
-
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
 
         atualBalanceLabel.setText("Atual Balance");
 
         holderLabel.setText("Holder");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        holderTxt.setEditable(false);
+        holderTxt.setColumns(20);
+        holderTxt.setRows(5);
+        holderTxt.setEnabled(false);
+
+        holderTxt1.setEditable(false);
+        holderTxt1.setColumns(20);
+        holderTxt1.setRows(5);
+        holderTxt1.setEnabled(false);
+
+        holderTxt2.setEditable(false);
+        holderTxt2.setColumns(20);
+        holderTxt2.setRows(5);
+        holderTxt2.setEnabled(false);
+
+        javax.swing.GroupLayout accountInformationsContentLayout = new javax.swing.GroupLayout(accountInformationsContent);
+        accountInformationsContent.setLayout(accountInformationsContentLayout);
+        accountInformationsContentLayout.setHorizontalGroup(
+            accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountInformationsContentLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(accountIdLabel)
                     .addComponent(holderLabel)
-                    .addComponent(accountIdLabel)
                     .addComponent(atualBalanceLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(holderTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(holderTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(holderTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        accountInformationsContentLayout.setVerticalGroup(
+            accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountInformationsContentLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountIdLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(holderLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(atualBalanceLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                    .addComponent(holderTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(holderLabel)
+                    .addComponent(holderTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(atualBalanceLabel)
+                    .addComponent(holderTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
-        accountInformationsPanel.add(jPanel3, java.awt.BorderLayout.CENTER);
+        accountInformationsPanel.add(accountInformationsContent, java.awt.BorderLayout.CENTER);
 
         container.add(accountInformationsPanel);
 
@@ -168,15 +167,15 @@ public class EditAccountGUI extends javax.swing.JDialog {
 
         withdrawHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        withdraw.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        withdraw.setText("Withdraw");
-        withdrawHeader.add(withdraw);
+        withdrawLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        withdrawLabel.setText("Withdraw");
+        withdrawHeader.add(withdrawLabel);
 
         withdrawPanel.add(withdrawHeader, java.awt.BorderLayout.PAGE_START);
 
-        jLabel2.setText("Insert Amount");
+        insertAmountLabel.setText("Insert Amount");
 
-        withdrawBtn.setText("Withdraw");
+        withdrawConfirmBtn.setText("Withdraw");
 
         javax.swing.GroupLayout withdrawContentLayout = new javax.swing.GroupLayout(withdrawContent);
         withdrawContent.setLayout(withdrawContentLayout);
@@ -186,12 +185,12 @@ public class EditAccountGUI extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(withdrawContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(withdrawContentLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(insertAmountLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(withdrawAmountTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                        .addComponent(withdrawAmountTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, withdrawContentLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(withdrawBtn)))
+                        .addComponent(withdrawConfirmBtn)))
                 .addContainerGap())
         );
         withdrawContentLayout.setVerticalGroup(
@@ -199,10 +198,10 @@ public class EditAccountGUI extends javax.swing.JDialog {
             .addGroup(withdrawContentLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(withdrawContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(insertAmountLabel)
                     .addComponent(withdrawAmountTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(withdrawBtn)
+                .addComponent(withdrawConfirmBtn)
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -214,15 +213,15 @@ public class EditAccountGUI extends javax.swing.JDialog {
 
         depositHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        depositLabelHeader.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        depositLabelHeader.setText("Deposit");
-        depositHeader.add(depositLabelHeader);
+        depositLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        depositLabel.setText("Deposit");
+        depositHeader.add(depositLabel);
 
         depositPanel.add(depositHeader, java.awt.BorderLayout.PAGE_START);
 
         depositAmountLabel.setText("Insert Amount");
 
-        depositBtn.setText("Deposit");
+        depositConfirmBtn.setText("Deposit");
 
         javax.swing.GroupLayout depositContentLayout = new javax.swing.GroupLayout(depositContent);
         depositContent.setLayout(depositContentLayout);
@@ -234,10 +233,10 @@ public class EditAccountGUI extends javax.swing.JDialog {
                     .addGroup(depositContentLayout.createSequentialGroup()
                         .addComponent(depositAmountLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(depositAmountTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                        .addComponent(depositAmountTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, depositContentLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(depositBtn)))
+                        .addComponent(depositConfirmBtn)))
                 .addContainerGap())
         );
         depositContentLayout.setVerticalGroup(
@@ -248,7 +247,7 @@ public class EditAccountGUI extends javax.swing.JDialog {
                     .addComponent(depositAmountLabel)
                     .addComponent(depositAmountTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(depositBtn)
+                .addComponent(depositConfirmBtn)
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -268,79 +267,37 @@ public class EditAccountGUI extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditAccountGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EditAccountGUI dialog = new EditAccountGUI(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Center;
     private javax.swing.JPanel Header;
-    private javax.swing.JButton Voltar;
+    private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel accountIdLabel;
+    private javax.swing.JPanel accountInformationsContent;
+    private javax.swing.JPanel accountInformationsHeader;
+    private javax.swing.JLabel accountInformationsLabel;
     private javax.swing.JPanel accountInformationsPanel;
     private javax.swing.JLabel atualBalanceLabel;
     private javax.swing.JPanel container;
     private javax.swing.JLabel depositAmountLabel;
     private javax.swing.JTextField depositAmountTxt;
-    private javax.swing.JButton depositBtn;
+    private javax.swing.JButton depositConfirmBtn;
     private javax.swing.JPanel depositContent;
     private javax.swing.JPanel depositHeader;
-    private javax.swing.JLabel depositLabelHeader;
+    private javax.swing.JLabel depositLabel;
     private javax.swing.JPanel depositPanel;
     private javax.swing.JLabel holderLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextArea holderTxt;
+    private javax.swing.JTextArea holderTxt1;
+    private javax.swing.JTextArea holderTxt2;
+    private javax.swing.JLabel insertAmountLabel;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JPanel operationsInAccountPanel;
-    private javax.swing.JLabel withdraw;
     private javax.swing.JTextField withdrawAmountTxt;
-    private javax.swing.JButton withdrawBtn;
+    private javax.swing.JButton withdrawConfirmBtn;
     private javax.swing.JPanel withdrawContent;
     private javax.swing.JPanel withdrawHeader;
+    private javax.swing.JLabel withdrawLabel;
     private javax.swing.JPanel withdrawPanel;
     // End of variables declaration//GEN-END:variables
 }

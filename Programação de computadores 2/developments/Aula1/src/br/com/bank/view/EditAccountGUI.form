@@ -53,7 +53,7 @@
         <Property name="verticalGap" type="int" value="10"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="Voltar">
+        <Component class="javax.swing.JButton" name="VoltarBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
@@ -83,14 +83,14 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel1">
+                <Container class="javax.swing.JPanel" name="accountInformationsHeader">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                       <BorderConstraints direction="First"/>
                     </Constraint>
                   </Constraints>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel1">
+                    <Component class="javax.swing.JLabel" name="accountInformationsLabel">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="1"/>
@@ -149,11 +149,11 @@
                       </Parameters>
                     </CodeStatement>
                     <CodeStatement>
-                      <CodeExpression id="6_jPanel1">
-                        <CodeVariable name="jPanel1" type="8194" declaredType="javax.swing.JPanel"/>
+                      <CodeExpression id="6_accountInformationsHeader">
+                        <CodeVariable name="accountInformationsHeader" type="8194" declaredType="javax.swing.JPanel"/>
                         <ExpressionOrigin>
                           <ExpressionProvider type="ComponentRef">
-                            <ComponentRef name="jPanel1"/>
+                            <ComponentRef name="accountInformationsHeader"/>
                           </ExpressionProvider>
                         </ExpressionOrigin>
                       </CodeExpression>
@@ -165,16 +165,16 @@
                       </Parameters>
                     </CodeStatement>
                     <CodeStatement>
-                      <CodeExpression id="6_jPanel1"/>
+                      <CodeExpression id="6_accountInformationsHeader"/>
                       <StatementProvider type="CodeMethod">
                         <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component"/>
                       </StatementProvider>
                       <Parameters>
-                        <CodeExpression id="7_jLabel1">
-                          <CodeVariable name="jLabel1" type="8194" declaredType="javax.swing.JLabel"/>
+                        <CodeExpression id="7_accountInformationsLabel">
+                          <CodeVariable name="accountInformationsLabel" type="8194" declaredType="javax.swing.JLabel"/>
                           <ExpressionOrigin>
                             <ExpressionProvider type="ComponentRef">
-                              <ComponentRef name="jLabel1"/>
+                              <ComponentRef name="accountInformationsLabel"/>
                             </ExpressionProvider>
                           </ExpressionOrigin>
                         </CodeExpression>
@@ -182,7 +182,7 @@
                     </CodeStatement>
                   </LayoutCode>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel3">
+                <Container class="javax.swing.JPanel" name="accountInformationsContent">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                       <BorderConstraints direction="Center"/>
@@ -195,39 +195,39 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="holderLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="accountIdLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="accountIdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holderLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="atualBalanceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" min="-2" pref="198" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="198" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" min="-2" pref="198" max="-2" attributes="0"/>
+                                  <Component id="holderTxt" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holderTxt1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holderTxt2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="34" max="32767" attributes="0"/>
+                              <EmptySpace pref="25" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="accountIdLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="accountIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holderTxt1" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane3" min="-2" pref="23" max="-2" attributes="0"/>
-                                  <Component id="holderLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="holderLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holderTxt" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="atualBalanceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="atualBalanceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holderTxt2" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="126" max="32767" attributes="0"/>
+                              <EmptySpace pref="146" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -238,61 +238,6 @@
                         <Property name="text" type="java.lang.String" value="Account ID:"/>
                       </Properties>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                      <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea1">
-                          <Properties>
-                            <Property name="editable" type="boolean" value="false"/>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea3">
-                          <Properties>
-                            <Property name="editable" type="boolean" value="false"/>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                      <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea2">
-                          <Properties>
-                            <Property name="editable" type="boolean" value="false"/>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="javax.swing.JLabel" name="atualBalanceLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Atual Balance"/>
@@ -301,6 +246,30 @@
                     <Component class="javax.swing.JLabel" name="holderLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Holder"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextArea" name="holderTxt">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextArea" name="holderTxt1">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextArea" name="holderTxt2">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -329,7 +298,7 @@
                         <Property name="alignment" type="int" value="0"/>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="withdraw">
+                        <Component class="javax.swing.JLabel" name="withdrawLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="1"/>
@@ -353,13 +322,13 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="insertAmountLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="withdrawAmountTxt" pref="246" max="32767" attributes="0"/>
+                                          <Component id="withdrawAmountTxt" pref="248" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="withdrawBtn" min="-2" max="-2" attributes="0"/>
+                                          <Component id="withdrawConfirmBtn" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -371,25 +340,25 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="insertAmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="withdrawAmountTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="withdrawBtn" min="-2" max="-2" attributes="0"/>
+                                  <Component id="withdrawConfirmBtn" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel2">
+                        <Component class="javax.swing.JLabel" name="insertAmountLabel">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Insert Amount"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="withdrawAmountTxt">
                         </Component>
-                        <Component class="javax.swing.JButton" name="withdrawBtn">
+                        <Component class="javax.swing.JButton" name="withdrawConfirmBtn">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Withdraw"/>
                           </Properties>
@@ -413,7 +382,7 @@
                         <Property name="alignment" type="int" value="0"/>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="depositLabelHeader">
+                        <Component class="javax.swing.JLabel" name="depositLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="1"/>
@@ -439,11 +408,11 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="depositAmountLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="depositAmountTxt" pref="246" max="32767" attributes="0"/>
+                                          <Component id="depositAmountTxt" pref="248" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="depositBtn" min="-2" max="-2" attributes="0"/>
+                                          <Component id="depositConfirmBtn" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -459,7 +428,7 @@
                                       <Component id="depositAmountTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="depositBtn" min="-2" max="-2" attributes="0"/>
+                                  <Component id="depositConfirmBtn" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -473,7 +442,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="depositAmountTxt">
                         </Component>
-                        <Component class="javax.swing.JButton" name="depositBtn">
+                        <Component class="javax.swing.JButton" name="depositConfirmBtn">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Deposit"/>
                           </Properties>
