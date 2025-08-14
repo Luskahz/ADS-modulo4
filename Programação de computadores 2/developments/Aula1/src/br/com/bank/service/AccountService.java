@@ -43,46 +43,13 @@ public class AccountService {
 
     }
 
-    public Map<Integer, AccountCurrent> listAccounts(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to list");
-        }
-        return bank.getAllAccounts();
+    
 
-    }
+    
 
-    public AccountCurrent searchAccount(Bank bank, int id) throws InvalidInputException {
-        if (id <= 0) {
-            throw new InvalidInputException("Insert a valid Id to search a account in the bank, the id have to be a positive number");
-        }
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to search within itself");
-        }
+    
 
-        return bank.getAccountById(id);
-
-    }
-
-    public int size(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to search within itself");
-        }
-        return bank.getSize();
-
-    }
-
-    public boolean refresh(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to search within itself");
-        }
-        try {
-            bank.refreshAllAccountsWithFile();
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-
-    }
+ 
 
     
 
@@ -101,10 +68,5 @@ public class AccountService {
 
     }
 
-    public void saveAccounts(Bank bank) throws IOException, InvalidInputException{
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to save in to file");
-        }
-        bank.saveAllAccountstToFile();
-    }
+    
 }

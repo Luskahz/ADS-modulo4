@@ -6,6 +6,7 @@ package br.com.bank.view;
 
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
+import br.com.bank.service.BankService;
 import java.util.Objects;
 import javax.swing.JFrame;
 
@@ -16,11 +17,13 @@ import javax.swing.JFrame;
 public class HomePageGUI extends javax.swing.JFrame {
 
     private final Bank bank;
-    private final AccountService service;
+    private final AccountService accountService;
+    private final BankService bankService;
 
-    public HomePageGUI(Bank bank, AccountService service) {
+    public HomePageGUI(Bank bank, AccountService accountService, BankService bankService) {
         this.bank = Objects.requireNonNull(bank, "Bank can't be null");
-        this.service = service;
+        this.accountService = accountService;
+        this.bankService = bankService;
 
         initComponents();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,13 +86,13 @@ public class HomePageGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLeaveFromApplication
 
     private void bntCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCreateAccountActionPerformed
-        CreateAccountGUI1 dialog = new CreateAccountGUI1(this, true, bank);
+        CreateAccountGUI1 dialog = new CreateAccountGUI1(this, true, bank, accountService, bankService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_bntCreateAccountActionPerformed
 
     private void btnListAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListAccountsActionPerformed
-        ListAccountsGUI dialog = new ListAccountsGUI(this, true, bank, service);
+        ListAccountsGUI dialog = new ListAccountsGUI(this, true, bank, accountService, bankService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnListAccountsActionPerformed

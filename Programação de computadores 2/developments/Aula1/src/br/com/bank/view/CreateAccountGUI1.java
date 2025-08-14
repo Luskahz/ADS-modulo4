@@ -7,9 +7,11 @@ package br.com.bank.view;
 import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
+import br.com.bank.service.AccountService;
+import br.com.bank.service.BankService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -23,7 +25,7 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
     /**
      * Creates new form CreateAccountGUI
      */
-    public CreateAccountGUI1(java.awt.Frame parent, boolean modal, Bank bank) {
+    public CreateAccountGUI1(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
         this.bank = bank;
         initComponents();

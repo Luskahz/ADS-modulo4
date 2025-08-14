@@ -8,6 +8,7 @@ import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
+import br.com.bank.service.BankService;
 import java.awt.Component;
 import java.util.Map;
 import javax.swing.Box;
@@ -23,15 +24,17 @@ import javax.swing.SwingConstants;
 public class ListAccountsGUI extends javax.swing.JDialog {
 
     private final Bank bank;
-    private final AccountService service;
+    private final AccountService accountService;
+    private final BankService bankService;
 
     /**
      * Creates new form ListAccountsGUI
      */
-    public ListAccountsGUI(java.awt.Frame parent, boolean modal, Bank bank, AccountService service) {
+    public ListAccountsGUI(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
         this.bank = bank;
-        this.service = service;
+        this.accountService = accountService;
+        this.bankService = bankService;
 
         initComponents();
         getRootPane().registerKeyboardAction(
@@ -43,7 +46,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
 
         listAccountsPanel.removeAll();
         try {
-            Map<Integer, AccountCurrent> accounts = service.listAccounts(bank);
+            Map<Integer, AccountCurrent> accounts = bankService.listAccounts(bank);
             accounts.forEach((id, account) -> {
                 JButton btn = new JButton("Account " + id + " - " + account.getHolder());
                 btn.setAlignmentX(Component.LEFT_ALIGNMENT);
