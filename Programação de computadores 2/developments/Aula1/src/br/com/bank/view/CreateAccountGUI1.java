@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 public class CreateAccountGUI1 extends javax.swing.JDialog {
 
     private final Bank bank;
+    private final AccountService accountService;
+    private final BankService bankservice;
 
     /**
      * Creates new form CreateAccountGUI
@@ -28,6 +30,8 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
     public CreateAccountGUI1(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
         this.bank = bank;
+        this.bankservice = bankService;
+        this.accountService = accountService;
         initComponents();
         getRootPane().registerKeyboardAction(
                 e -> dispose(),
@@ -183,13 +187,18 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
         int id = Integer.parseInt(id_txt);
         double balance = Double.parseDouble(balance_txt);
         
-        AccountCurrent account = new AccountCurrent(id, holder_txt, balance);
+        AccountCurrent account;
+        try {
+            account = accountService.createAccount(id, holder_txt, balance);
+        } catch (InvalidInputException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
+        }
         try {
             bank.addAccount(account);
             JOptionPane.showMessageDialog(null, "Account Added with sucess");
             dispose();
         } catch (InvalidInputException ex) {
-            Logger.getLogger(CreateAccountGUI1.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, insert valid inputs to create a account", JOptionPane.ERROR_MESSAGE);
         }
         
         

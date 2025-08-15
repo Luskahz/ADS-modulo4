@@ -63,8 +63,7 @@ public class AccountService {
         if (balance < 0) {
             throw new InvalidInputException("you can't start in debit");
         }
-        AccountCurrent account;
-        return account = new AccountCurrent(id, holder, balance);
+        return new AccountCurrent(id, holder, balance);
 
     }
 
