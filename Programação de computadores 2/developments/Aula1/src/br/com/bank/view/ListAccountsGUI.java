@@ -42,7 +42,6 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
         listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
-        javax.swing.JButton bnt = new javax.swing.JButton("Exemplo de conta");
 
         listAccountsPanel.removeAll();
         try {

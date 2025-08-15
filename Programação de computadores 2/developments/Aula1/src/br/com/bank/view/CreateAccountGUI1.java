@@ -9,9 +9,7 @@ import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
 import br.com.bank.service.BankService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +20,7 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
 
     private final Bank bank;
     private final AccountService accountService;
-    private final BankService bankservice;
+    private final BankService bankService;
 
     /**
      * Creates new form CreateAccountGUI
@@ -30,7 +28,7 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
     public CreateAccountGUI1(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
         this.bank = bank;
-        this.bankservice = bankService;
+        this.bankService = bankService;
         this.accountService = accountService;
         initComponents();
         getRootPane().registerKeyboardAction(
@@ -38,6 +36,7 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,6 +175,7 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
     }//GEN-LAST:event_txtHolderActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        AccountCurrent account = null;
         String id_txt = txtId.getText().trim();
         String holder_txt = txtHolder.getText().trim();
         String balance_txt = txtBalance.getText().trim();
@@ -186,25 +186,22 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
         }
         int id = Integer.parseInt(id_txt);
         double balance = Double.parseDouble(balance_txt);
-        
-        AccountCurrent account;
+
         try {
             account = accountService.createAccount(id, holder_txt, balance);
         } catch (InvalidInputException ex) {
-           JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
+            
         }
         try {
-            bank.addAccount(account);
+            bankService.insertAccount(bank, account);
             JOptionPane.showMessageDialog(null, "Account Added with sucess");
             dispose();
         } catch (InvalidInputException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, insert valid inputs to create a account", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, not possible insert the account in the bank, valid what's goin on", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
-        
-
 
     }//GEN-LAST:event_btnSaveActionPerformed
 

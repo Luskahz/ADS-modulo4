@@ -17,17 +17,29 @@ import java.util.Map;
  * @author lucas
  */
 public class BankService {
-    
-    public Bank createBank(String pathString) throws IOException{
+
+    public Bank createBank(String pathString) throws IOException {
         Path path = Paths.get(pathString);
         Bank bank = new Bank(path);
         return bank;
     }
 
-    public Map<Integer, AccountCurrent> listAccounts(Bank bank) throws InvalidInputException {
+    public void insertAccount(Bank bank, AccountCurrent account) throws IOException, InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to list");
         }
+        if (account == null) {
+            throw new InvalidInputException("Insert a valid account to insert in bank");
+        }
+        bank.addAccount(account);
+
+    }
+
+    public Map<Integer, AccountCurrent> listAccounts(Bank bank) throws InvalidInputException {
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to insert a account");
+        }
+
         return bank.getAllAccounts();
 
     }
@@ -64,8 +76,8 @@ public class BankService {
         }
 
     }
-    
-    public void saveAccounts(Bank bank) throws IOException, InvalidInputException{
+
+    public void saveAccounts(Bank bank) throws IOException, InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to save in to file");
         }
