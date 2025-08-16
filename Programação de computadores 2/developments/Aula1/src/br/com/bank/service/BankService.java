@@ -8,8 +8,11 @@ import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -18,9 +21,10 @@ import java.util.Map;
  */
 public class BankService {
 
-    public Bank createBank(String pathString) throws IOException {
-        Path path = Paths.get(pathString);
-        Bank bank = new Bank(path);
+    public Bank createBank(String pathStringBank, String pathStringStatement) throws IOException {
+        Path pathBank = Paths.get(pathStringBank);
+        Path pathStatement = Paths.get(pathStringStatement);
+        Bank bank = new Bank(pathBank, pathStatement);
         return bank;
     }
 
@@ -82,5 +86,28 @@ public class BankService {
             throw new InvalidInputException("Insert a valid bank to save in to file");
         }
         bank.saveAllAccountstToFile();
+    }
+
+    public Path getStatementFilepath(Bank bank) throws InvalidInputException {
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to save in to get StatementPath");
+        }
+        return bank.getStatementPath();
+    }
+
+    public void updateStatement(Bank bank, AccountCurrent account, String message) throws IOException, InvalidInputException {
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to get the Statement Path");
+        }
+        if (account == null) {
+            throw new InvalidInputException("Insert a valid account to to save in informations of the transition");
+        }
+        if (message == null) {
+            throw new InvalidInputException("Insert a observation for the transition");
+        }
+        Date date = new Date();
+        
+        Files.writeString(bank.getStatementPath(), "["+ date.toString() + "] - Account: " + account.getId() + "; Holder: "+ account.getHolder() +"; Balance: " + account.getBalance() + "; [Operation: " + message + "]" +"\n", StandardOpenOption.APPEND);
+        
     }
 }

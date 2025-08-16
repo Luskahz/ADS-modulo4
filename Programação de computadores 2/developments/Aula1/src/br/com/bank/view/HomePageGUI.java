@@ -4,11 +4,16 @@
  */
 package br.com.bank.view;
 
+import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
 import br.com.bank.service.BankService;
+import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +26,7 @@ public class HomePageGUI extends javax.swing.JFrame {
     private final BankService bankService;
 
     public HomePageGUI(Bank bank, AccountService accountService, BankService bankService) {
-        this.bank = Objects.requireNonNull(bank, "Bank can't be null");
+        this.bank = Objects.requireNonNull(bank);
         this.accountService = accountService;
         this.bankService = bankService;
 
@@ -38,7 +43,6 @@ public class HomePageGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         bntCreateAccount = new javax.swing.JButton();
         btnListOfAccounts = new javax.swing.JButton();
-        btnAnalytics = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("home");
@@ -73,20 +77,26 @@ public class HomePageGUI extends javax.swing.JFrame {
         });
         jPanel2.add(btnListOfAccounts);
 
-        btnAnalytics.setText("Analytics");
-        jPanel2.add(btnAnalytics);
-
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLeaveFromApplication(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLeaveFromApplication
+
+        try {
+            bankService.saveAccounts(bank);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        } catch (InvalidInputException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Invalid Input Error", JOptionPane.ERROR_MESSAGE);
+        }
+
         System.exit(0);
     }//GEN-LAST:event_buttonLeaveFromApplication
 
     private void bntCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCreateAccountActionPerformed
-        CreateAccountGUI1 dialog = new CreateAccountGUI1(this, true, bank, accountService, bankService);
+        CreateAccountGUI dialog = new CreateAccountGUI(this, true, bank, accountService, bankService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_bntCreateAccountActionPerformed
@@ -100,7 +110,6 @@ public class HomePageGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCreateAccount;
-    private javax.swing.JButton btnAnalytics;
     private javax.swing.JButton btnListOfAccounts;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;

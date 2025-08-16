@@ -73,11 +73,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListAccountsActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAnalytics">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Analytics"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

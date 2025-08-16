@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author lucas
  */
-public class CreateAccountGUI1 extends javax.swing.JDialog {
+public class CreateAccountGUI extends javax.swing.JDialog {
 
     private final Bank bank;
     private final AccountService accountService;
@@ -25,7 +25,7 @@ public class CreateAccountGUI1 extends javax.swing.JDialog {
     /**
      * Creates new form CreateAccountGUI
      */
-    public CreateAccountGUI1(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
+    public CreateAccountGUI(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
         this.bank = bank;
         this.bankService = bankService;

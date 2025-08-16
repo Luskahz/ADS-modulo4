@@ -57,6 +57,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VoltarBtnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -202,10 +205,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="holderTxt" min="-2" max="-2" attributes="0"/>
-                                  <Component id="holderTxt1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="holderTxt2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="accountIdTxt" min="-2" max="-2" attributes="0"/>
+                                  <Component id="atualBalanceTxt" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="25" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -215,7 +218,7 @@
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="accountIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="holderTxt1" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="accountIdTxt" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -225,7 +228,7 @@
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="atualBalanceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="holderTxt2" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="atualBalanceTxt" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="146" max="32767" attributes="0"/>
                           </Group>
@@ -256,7 +259,7 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextArea" name="holderTxt1">
+                    <Component class="javax.swing.JTextArea" name="accountIdTxt">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="columns" type="int" value="20"/>
@@ -264,7 +267,7 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextArea" name="holderTxt2">
+                    <Component class="javax.swing.JTextArea" name="atualBalanceTxt">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="columns" type="int" value="20"/>
@@ -362,6 +365,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Withdraw"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="withdrawConfirmBtnActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -446,6 +452,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Deposit"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="depositConfirmBtnActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

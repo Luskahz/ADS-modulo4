@@ -52,7 +52,8 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                 btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, btn.getPreferredSize().height));
                 btn.setHorizontalAlignment(SwingConstants.LEFT);
                 btn.addActionListener(ev -> {
-                    
+                    EditAccountGUI edit = new EditAccountGUI((java.awt.Frame) this.getParent(), true, account, bank, bankService, accountService);
+                    edit.setVisible(true);
                 });
 
                 listAccountsPanel.add(btn);
@@ -64,9 +65,11 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         listAccountsPanel.revalidate();
         listAccountsPanel.repaint();
         
-        voltarBtn.addActionListener(e -> dispose());
+        backBtn.addActionListener(e -> dispose());
 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,24 +81,78 @@ public class ListAccountsGUI extends javax.swing.JDialog {
     private void initComponents() {
 
         header = new javax.swing.JPanel();
-        voltarBtn = new javax.swing.JButton();
+        rightBtnsPanel = new javax.swing.JPanel();
+        backBtn = new javax.swing.JButton();
+        AnalyticBtn = new javax.swing.JToggleButton();
+        BalanceSumOfAccountsTxt = new javax.swing.JTextField();
         conteiner = new javax.swing.JPanel();
         containerHeader = new javax.swing.JPanel();
         searchAccountTxt = new javax.swing.JTextField();
         conteinerContent = new javax.swing.JPanel();
         conteinerScrollList = new javax.swing.JScrollPane();
         listAccountsPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("List Account");
         setResizable(false);
         setSize(new java.awt.Dimension(480, 360));
 
-        header.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        rightBtnsPanel.setPreferredSize(new java.awt.Dimension(200, 25));
 
-        voltarBtn.setText("Voltar");
-        header.add(voltarBtn);
+        backBtn.setText("Back");
+
+        AnalyticBtn.setText("Analytic");
+        AnalyticBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnalyticBtnActionPerformed(evt);
+            }
+        });
+
+        BalanceSumOfAccountsTxt.setEditable(false);
+        BalanceSumOfAccountsTxt.setPreferredSize(new java.awt.Dimension(150, 26));
+        BalanceSumOfAccountsTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BalanceSumOfAccountsTxtActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rightBtnsPanelLayout = new javax.swing.GroupLayout(rightBtnsPanel);
+        rightBtnsPanel.setLayout(rightBtnsPanelLayout);
+        rightBtnsPanelLayout.setHorizontalGroup(
+            rightBtnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rightBtnsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AnalyticBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(BalanceSumOfAccountsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        rightBtnsPanelLayout.setVerticalGroup(
+            rightBtnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rightBtnsPanelLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(rightBtnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rightBtnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(AnalyticBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BalanceSumOfAccountsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(rightBtnsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addComponent(rightBtnsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
 
@@ -114,10 +171,6 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         conteiner.add(containerHeader, java.awt.BorderLayout.PAGE_START);
 
         listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
-
-        jButton1.setText("jButton1");
-        listAccountsPanel.add(jButton1);
-
         conteinerScrollList.setViewportView(listAccountsPanel);
 
         javax.swing.GroupLayout conteinerContentLayout = new javax.swing.GroupLayout(conteinerContent);
@@ -148,19 +201,29 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchAccountTxtActionPerformed
 
+    private void AnalyticBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalyticBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AnalyticBtnActionPerformed
+
+    private void BalanceSumOfAccountsTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BalanceSumOfAccountsTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BalanceSumOfAccountsTxtActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton AnalyticBtn;
+    private javax.swing.JTextField BalanceSumOfAccountsTxt;
+    private javax.swing.JButton backBtn;
     private javax.swing.JPanel containerHeader;
     private javax.swing.JPanel conteiner;
     private javax.swing.JPanel conteinerContent;
     private javax.swing.JScrollPane conteinerScrollList;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel listAccountsPanel;
+    private javax.swing.JPanel rightBtnsPanel;
     private javax.swing.JTextField searchAccountTxt;
-    private javax.swing.JButton voltarBtn;
     // End of variables declaration//GEN-END:variables
 }

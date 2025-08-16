@@ -11,10 +11,6 @@ import br.com.bank.service.BankService;
 
 import br.com.bank.view.HomePageGUI;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -33,22 +29,21 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(() -> {
             final Bank bank;
             try {
-                bank = bankService.createBank("Account.txt");
-                bankService.refresh(bank);
-            } catch (IOException | InvalidInputException e) {
+                bank = bankService.createBank("Account.txt", "Statement.txt");
+            } catch (IOException e) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Error, we can't create the bank to save the accounts, run after some minutes....\n" + e.getMessage(),
                         "Error",
                         JOptionPane.ERROR_MESSAGE
                 );
-                System.exit(1); return;
+                System.exit(1);
+                return;
             }
-            
 
             HomePageGUI home = new HomePageGUI(bank, accountService, bankService);
-            home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
+            home.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
             home.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -58,11 +53,10 @@ public class Main {
                         JOptionPane.showMessageDialog(home, "Error saving accounts: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
 
                     }
-                    
 
                 }
             });
-
+            home.setLocationRelativeTo(null);
             home.setVisible(true);
 
         });

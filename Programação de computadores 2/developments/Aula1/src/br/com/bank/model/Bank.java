@@ -22,26 +22,31 @@ public final class Bank {
     //Attributes
     private final Map<Integer, AccountCurrent> bank;
     private final Path filepath;
+    private final Path statementPath;
 
     //Constructor
-    public Bank(Path path) throws IOException {
+    public Bank(Path path, Path statementPath) throws IOException {
         this.bank = new HashMap<>();
         this.filepath = path;
-
-        if (Files.exists(path)) {
-            refreshAllAccountsWithFile();
-        } else {
-            if (path.getParent() != null) {
-                Files.createDirectories(path.getParent());
-            }
-            Files.createFile(path);
-
+        this.statementPath = statementPath;
+        if (path.getParent() != null) {
+            Files.createDirectories(path.getParent());
         }
+        if (statementPath.getParent() != null) {
+            Files.createDirectories(statementPath.getParent());
+        }
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
+        if (!Files.exists(statementPath)) {
+            Files.createFile(statementPath);
+        }
+
+        refreshAllAccountsWithFile();
     }
 
-    public Bank() {
-        this.bank = new HashMap<>();
-        this.filepath = null;
+    public Path getStatementPath() {
+        return statementPath;
     }
 
     //Getters
@@ -60,14 +65,13 @@ public final class Bank {
     //Setters
     public void addAccount(AccountCurrent account) throws InvalidInputException {
         if (bank.containsKey(account.getId())) {
-        throw new InvalidInputException("Já existe uma conta com esse ID.");
-    }
+            throw new InvalidInputException("Já existe uma conta com esse ID.");
+        }
         bank.put(account.getId(), account);
     }
 
     //Methods
     public void saveAllAccountstToFile() throws IOException {
-        //define o path e o stringbuilder
 
         StringBuilder sb = new StringBuilder();
 

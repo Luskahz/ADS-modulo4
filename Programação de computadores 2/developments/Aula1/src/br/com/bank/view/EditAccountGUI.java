@@ -4,25 +4,57 @@
  */
 package br.com.bank.view;
 
+import br.com.bank.exceptions.InsufficientBalanceException;
+import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
+import br.com.bank.service.AccountService;
+import br.com.bank.service.BankService;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author cg3034186
  */
 public class EditAccountGUI extends javax.swing.JDialog {
-    
+
     private final Bank bank;
     private final AccountCurrent account;
-    
-    public EditAccountGUI(java.awt.Frame parent, boolean modal, AccountCurrent account, Bank bank) {
+    private final AccountService accountService;
+    private final BankService bankService;
+    private int accountId;
+    private String holder;
+    private double balance;
+
+    public EditAccountGUI(java.awt.Frame parent, boolean modal, AccountCurrent account, Bank bank, BankService bankService, AccountService accountService) {
         super(parent, modal);
         this.bank = bank;
         this.account = account;
+        this.bankService = bankService;
+        this.accountService = accountService;
         initComponents();
-        
-        
+
+        try {
+            this.holder = accountService.getHolder(account);
+            this.accountId = accountService.getId(account);
+            this.balance = accountService.getBalance(account);
+
+        } catch (InvalidInputException e) {
+            JOptionPane.showMessageDialog(this, "Error in get the account informations: " + e.getMessage(), "informations account Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        accountIdTxt.setText(String.valueOf(accountId));
+        holderTxt.setText(String.valueOf(holder));
+        atualBalanceTxt.setText(String.valueOf(balance));
+
+    }
+
+    public void refreshAccountInformations(double newBalance) {
+        atualBalanceTxt.setText(String.valueOf(newBalance));
+
     }
 
     /**
@@ -47,8 +79,8 @@ public class EditAccountGUI extends javax.swing.JDialog {
         atualBalanceLabel = new javax.swing.JLabel();
         holderLabel = new javax.swing.JLabel();
         holderTxt = new javax.swing.JTextArea();
-        holderTxt1 = new javax.swing.JTextArea();
-        holderTxt2 = new javax.swing.JTextArea();
+        accountIdTxt = new javax.swing.JTextArea();
+        atualBalanceTxt = new javax.swing.JTextArea();
         operationsInAccountPanel = new javax.swing.JPanel();
         withdrawPanel = new javax.swing.JPanel();
         withdrawHeader = new javax.swing.JPanel();
@@ -81,6 +113,11 @@ public class EditAccountGUI extends javax.swing.JDialog {
         Header.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
 
         VoltarBtn.setText("Voltar");
+        VoltarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarBtnActionPerformed(evt);
+            }
+        });
         Header.add(VoltarBtn);
 
         getContentPane().add(Header, java.awt.BorderLayout.PAGE_START);
@@ -112,15 +149,15 @@ public class EditAccountGUI extends javax.swing.JDialog {
         holderTxt.setRows(5);
         holderTxt.setEnabled(false);
 
-        holderTxt1.setEditable(false);
-        holderTxt1.setColumns(20);
-        holderTxt1.setRows(5);
-        holderTxt1.setEnabled(false);
+        accountIdTxt.setEditable(false);
+        accountIdTxt.setColumns(20);
+        accountIdTxt.setRows(5);
+        accountIdTxt.setEnabled(false);
 
-        holderTxt2.setEditable(false);
-        holderTxt2.setColumns(20);
-        holderTxt2.setRows(5);
-        holderTxt2.setEnabled(false);
+        atualBalanceTxt.setEditable(false);
+        atualBalanceTxt.setColumns(20);
+        atualBalanceTxt.setRows(5);
+        atualBalanceTxt.setEnabled(false);
 
         javax.swing.GroupLayout accountInformationsContentLayout = new javax.swing.GroupLayout(accountInformationsContent);
         accountInformationsContent.setLayout(accountInformationsContentLayout);
@@ -135,9 +172,9 @@ public class EditAccountGUI extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(holderTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(holderTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(holderTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(accountIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atualBalanceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         accountInformationsContentLayout.setVerticalGroup(
             accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +182,7 @@ public class EditAccountGUI extends javax.swing.JDialog {
                 .addGap(11, 11, 11)
                 .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountIdLabel)
-                    .addComponent(holderTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(accountIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(holderLabel)
@@ -153,7 +190,7 @@ public class EditAccountGUI extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atualBalanceLabel)
-                    .addComponent(holderTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(atualBalanceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(146, Short.MAX_VALUE))
         );
 
@@ -176,6 +213,11 @@ public class EditAccountGUI extends javax.swing.JDialog {
         insertAmountLabel.setText("Insert Amount");
 
         withdrawConfirmBtn.setText("Withdraw");
+        withdrawConfirmBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                withdrawConfirmBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout withdrawContentLayout = new javax.swing.GroupLayout(withdrawContent);
         withdrawContent.setLayout(withdrawContentLayout);
@@ -222,6 +264,11 @@ public class EditAccountGUI extends javax.swing.JDialog {
         depositAmountLabel.setText("Insert Amount");
 
         depositConfirmBtn.setText("Deposit");
+        depositConfirmBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                depositConfirmBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout depositContentLayout = new javax.swing.GroupLayout(depositContent);
         depositContent.setLayout(depositContentLayout);
@@ -264,6 +311,39 @@ public class EditAccountGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
+        dispose();
+    }//GEN-LAST:event_VoltarBtnActionPerformed
+
+    private void withdrawConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawConfirmBtnActionPerformed
+        double amount = Double.parseDouble(withdrawAmountTxt.getText());
+
+        try {
+            double newBalance = accountService.withdraw(account, bank, amount, bankService);
+            refreshAccountInformations(newBalance);
+        } catch (InsufficientBalanceException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Insuficient Balance Error", JOptionPane.ERROR_MESSAGE);
+        } catch (InvalidInputException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Value Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_withdrawConfirmBtnActionPerformed
+
+    private void depositConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositConfirmBtnActionPerformed
+        double amount = Double.parseDouble(depositAmountTxt.getText());
+        try {
+            double newBalance = accountService.deposit(account, bank, amount, bankService);
+            refreshAccountInformations(newBalance);
+        } catch (InvalidInputException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Value Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_depositConfirmBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,11 +353,13 @@ public class EditAccountGUI extends javax.swing.JDialog {
     private javax.swing.JPanel Header;
     private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel accountIdLabel;
+    private javax.swing.JTextArea accountIdTxt;
     private javax.swing.JPanel accountInformationsContent;
     private javax.swing.JPanel accountInformationsHeader;
     private javax.swing.JLabel accountInformationsLabel;
     private javax.swing.JPanel accountInformationsPanel;
     private javax.swing.JLabel atualBalanceLabel;
+    private javax.swing.JTextArea atualBalanceTxt;
     private javax.swing.JPanel container;
     private javax.swing.JLabel depositAmountLabel;
     private javax.swing.JTextField depositAmountTxt;
@@ -288,8 +370,6 @@ public class EditAccountGUI extends javax.swing.JDialog {
     private javax.swing.JPanel depositPanel;
     private javax.swing.JLabel holderLabel;
     private javax.swing.JTextArea holderTxt;
-    private javax.swing.JTextArea holderTxt1;
-    private javax.swing.JTextArea holderTxt2;
     private javax.swing.JLabel insertAmountLabel;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel operationsInAccountPanel;

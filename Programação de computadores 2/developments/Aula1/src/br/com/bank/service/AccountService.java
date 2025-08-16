@@ -9,48 +9,62 @@ import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.Account;
 import br.com.bank.model.AccountCurrent;
 import br.com.bank.model.Bank;
+import br.com.bank.service.BankService;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  *
  * @author lucas
  */
 public class AccountService {
-    
-    
 
-    public void withdraw(Account account, double valueForWithdraw) throws InsufficientBalanceException, InvalidInputException {
+    public double withdraw(AccountCurrent account, Bank bank, double valueForWithdraw, BankService bankService) throws InsufficientBalanceException, InvalidInputException, IOException {
         if (account == null) {
             throw new InvalidInputException("Insert a valid account to withdraw");
         }
-        if (valueForWithdraw <= 0) {
-            throw new InvalidInputException("Insert a valid Value to withdraw");
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to withdraw a value for a account");
         }
-
+        double previousBalance = account.getBalance();
+        
         account.withdraw(valueForWithdraw);
+        bankService.updateStatement(bank, account, "Withdraw of $"+ valueForWithdraw+ "; Previous balance: $" + previousBalance);
+        return account.getBalance();
     }
 
-    public void deposit(Account account, double valueForDeposit) throws InvalidInputException {
+    public double deposit(AccountCurrent account, Bank bank, double valueForDeposit, BankService bankService) throws InvalidInputException, IOException {
         if (account == null) {
-            throw new InvalidInputException("Insert a valid account to withdraw");
+            throw new InvalidInputException("Insert a valid account to deposit");
         }
         if (valueForDeposit <= 0) {
-            throw new InvalidInputException("Insert a valid Value to withdraw");
+            throw new InvalidInputException("Insert a valid Value to deposit");
         }
-
+        double previousBalance = account.getBalance();
         account.deposit(valueForDeposit);
-
+        bankService.updateStatement(bank, account, "Deposit of $"+ valueForDeposit+ "; Previous balance: $" + previousBalance);
+        return account.getBalance();
     }
 
-    
+    public int getId(Account account) throws InvalidInputException {
+        if (account == null) {
+            throw new InvalidInputException("Insert a valid account to get id");
+        }
+        return account.getId();
+    }
 
-    
+    public String getHolder(Account account) throws InvalidInputException {
+        if (account == null) {
+            throw new InvalidInputException("Insert a valid account to get the holder name");
+        }
+        return account.getHolder();
+    }
 
-    
-
- 
-
+    public double getBalance(Account account) throws InvalidInputException {
+        if (account == null) {
+            throw new InvalidInputException("Insert a valid account to get the balance of account");
+        }
+        return account.getBalance();
+    }
     
 
     public AccountCurrent createAccount(int id, String holder, double balance) throws InvalidInputException {
@@ -67,5 +81,4 @@ public class AccountService {
 
     }
 
-    
 }
