@@ -27,20 +27,59 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filterPanel = new javax.swing.JPanel();
-        filterHeader = new javax.swing.JPanel();
-        filterConfigLabel = new javax.swing.JLabel();
-        filterBody = new javax.swing.JPanel();
-        groupPanel = new javax.swing.JPanel();
-        groupHeader = new javax.swing.JPanel();
-        groupConfigLabel = new javax.swing.JLabel();
-        groupBody = new javax.swing.JPanel();
+        dialogContentPanel = new javax.swing.JPanel();
         calcPanel = new javax.swing.JPanel();
         calcHeader = new javax.swing.JPanel();
         calcConfigLabel = new javax.swing.JLabel();
         calcBody = new javax.swing.JPanel();
+        sumBalancesTggleBtn = new javax.swing.JToggleButton();
+        groupPanel = new javax.swing.JPanel();
+        groupHeader = new javax.swing.JPanel();
+        groupConfigLabel = new javax.swing.JLabel();
+        groupBody = new javax.swing.JPanel();
+        groupWithBalanceTggleBtn = new javax.swing.JToggleButton();
+        filterPanel = new javax.swing.JPanel();
+        filterHeader = new javax.swing.JPanel();
+        filterConfigLabel = new javax.swing.JLabel();
+        filterBody = new javax.swing.JPanel();
+        HighAccountsFilterTggleBtn = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        dialogContentPanel.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+
+        calcPanel.setLayout(new java.awt.BorderLayout());
+
+        calcConfigLabel.setText("Calc Config");
+        calcHeader.add(calcConfigLabel);
+
+        calcPanel.add(calcHeader, java.awt.BorderLayout.PAGE_START);
+
+        sumBalancesTggleBtn.setText("Sum Balances");
+        calcBody.add(sumBalancesTggleBtn);
+
+        calcPanel.add(calcBody, java.awt.BorderLayout.CENTER);
+
+        dialogContentPanel.add(calcPanel);
+
+        groupPanel.setLayout(new java.awt.BorderLayout());
+
+        groupConfigLabel.setText("Group Config");
+        groupHeader.add(groupConfigLabel);
+
+        groupPanel.add(groupHeader, java.awt.BorderLayout.PAGE_START);
+
+        groupWithBalanceTggleBtn.setText("Group with Balance");
+        groupWithBalanceTggleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                groupWithBalanceTggleBtnActionPerformed(evt);
+            }
+        });
+        groupBody.add(groupWithBalanceTggleBtn);
+
+        groupPanel.add(groupBody, java.awt.BorderLayout.CENTER);
+
+        dialogContentPanel.add(groupPanel);
 
         filterPanel.setLayout(new java.awt.BorderLayout());
 
@@ -49,37 +88,45 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
 
         filterPanel.add(filterHeader, java.awt.BorderLayout.PAGE_START);
 
-        filterBody.setLayout(new java.awt.GridBagLayout());
+        HighAccountsFilterTggleBtn.setText(">10000 Balance");
+        HighAccountsFilterTggleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HighAccountsFilterTggleBtnActionPerformed(evt);
+            }
+        });
+        filterBody.add(HighAccountsFilterTggleBtn);
+
         filterPanel.add(filterBody, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(filterPanel, java.awt.BorderLayout.LINE_START);
+        dialogContentPanel.add(filterPanel);
 
-        groupPanel.setLayout(new java.awt.BorderLayout());
-
-        groupConfigLabel.setText("Calc Config");
-        groupHeader.add(groupConfigLabel);
-
-        groupPanel.add(groupHeader, java.awt.BorderLayout.PAGE_START);
-
-        groupBody.setLayout(new java.awt.GridLayout());
-        groupPanel.add(groupBody, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(groupPanel, java.awt.BorderLayout.LINE_END);
-
-        calcPanel.setLayout(new java.awt.BorderLayout());
-
-        calcConfigLabel.setText("Group Config");
-        calcHeader.add(calcConfigLabel);
-
-        calcPanel.add(calcHeader, java.awt.BorderLayout.PAGE_START);
-
-        calcBody.setLayout(new java.awt.GridLayout());
-        calcPanel.add(calcBody, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(calcPanel, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dialogContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dialogContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void HighAccountsFilterTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HighAccountsFilterTggleBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HighAccountsFilterTggleBtnActionPerformed
+
+    private void groupWithBalanceTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupWithBalanceTggleBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_groupWithBalanceTggleBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,10 +171,12 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton HighAccountsFilterTggleBtn;
     private javax.swing.JPanel calcBody;
     private javax.swing.JLabel calcConfigLabel;
     private javax.swing.JPanel calcHeader;
     private javax.swing.JPanel calcPanel;
+    private javax.swing.JPanel dialogContentPanel;
     private javax.swing.JPanel filterBody;
     private javax.swing.JLabel filterConfigLabel;
     private javax.swing.JPanel filterHeader;
@@ -136,5 +185,7 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
     private javax.swing.JLabel groupConfigLabel;
     private javax.swing.JPanel groupHeader;
     private javax.swing.JPanel groupPanel;
+    private javax.swing.JToggleButton groupWithBalanceTggleBtn;
+    private javax.swing.JToggleButton sumBalancesTggleBtn;
     // End of variables declaration//GEN-END:variables
 }
