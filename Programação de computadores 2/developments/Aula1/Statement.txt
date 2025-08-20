@@ -268,3 +268,5 @@
 [Sat Aug 16 17:52:25 GMT-03:00 2025] - Account: 8; Holder: mari; Balance: 19000.0; [Operation: Deposit of $1000.0; Previous balance: $18000.0]
 [Sat Aug 16 17:52:26 GMT-03:00 2025] - Account: 8; Holder: mari; Balance: 20000.0; [Operation: Deposit of $1000.0; Previous balance: $19000.0]
 [Sat Aug 16 17:52:26 GMT-03:00 2025] - Account: 8; Holder: mari; Balance: 21000.0; [Operation: Deposit of $1000.0; Previous balance: $20000.0]
+[Tue Aug 19 20:06:19 BRT 2025] - Account: 10; Holder: joao; Balance: 11990.0; [Operation: Withdraw of $10.0; Previous balance: $12000.0]
+[Tue Aug 19 21:09:55 BRT 2025] - Account: 1; Holder: lucas; Balance: 11988.0; [Operation: Withdraw of $12.0; Previous balance: $12000.0]

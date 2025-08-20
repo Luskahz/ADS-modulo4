@@ -43,17 +43,17 @@ public final class Bank {
         }
 
         refreshAllAccountsWithFile();
+        
     }
-
-    public Path getStatementPath() {
-        return statementPath;
-    }
+    
 
     //Getters
     public int getSize() {
         return bank.size();
     }
-
+    public Path getStatementPath() {
+        return statementPath;
+    }
     public AccountCurrent getAccountById(int accountId) {
         return bank.get(accountId); //retorna a referencia na memoria;
     }
@@ -77,11 +77,11 @@ public final class Bank {
 
         // cria o string de contas que vai ficar no cache, bem merda msm uma hora vai dar crash na memoriakk
         for (Map.Entry<Integer, AccountCurrent> entry : bank.entrySet()) {
-            AccountCurrent conta = entry.getValue();
+            AccountCurrent account = entry.getValue();
 
-            sb.append(conta.getId()).append(";");
-            sb.append(conta.getHolder()).append(";");
-            sb.append(conta.getBalance()).append(";\n");
+            sb.append(account.getId()).append(";");
+            sb.append(account.getHolder()).append(";");
+            sb.append(account.getBalance()).append(";\n");
         }
 
         Files.writeString(this.filepath, sb.toString(), StandardOpenOption.TRUNCATE_EXISTING);
@@ -95,8 +95,8 @@ public final class Bank {
             int id = Integer.parseInt(parts[0]);
             double balance = Double.parseDouble(parts[2]);
 
-            AccountCurrent conta = new AccountCurrent(id, parts[1], balance);
-            tmp.put(id, conta);
+            AccountCurrent account = new AccountCurrent(id, parts[1], balance);
+            tmp.put(id, account);
         }
 
         bank.clear();

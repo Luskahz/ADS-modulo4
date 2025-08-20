@@ -5,7 +5,6 @@
 package br.com.bank.model;
 
 import br.com.bank.exceptions.InsufficientBalanceException;
-import java.nio.file.*;
 
 /**
  *
@@ -18,10 +17,10 @@ public abstract class Account {
     double balance;
 
     //construtor
-    public Account(int numero, String titular, double saldo) {
-        this.id = numero;
-        this.holder = titular;
-        this.balance = saldo;
+    public Account(int number, String holder, double balance) {
+        this.id = number;
+        this.holder = holder;
+        this.balance = balance;
     }
 
     // getters

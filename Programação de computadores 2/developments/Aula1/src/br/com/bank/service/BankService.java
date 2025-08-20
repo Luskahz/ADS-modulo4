@@ -21,13 +21,32 @@ import java.util.Map;
  */
 public class BankService {
 
+    //Constructor
     public Bank createBank(String pathStringBank, String pathStringStatement) throws IOException {
         Path pathBank = Paths.get(pathStringBank);
         Path pathStatement = Paths.get(pathStringStatement);
         Bank bank = new Bank(pathBank, pathStatement);
         return bank;
     }
+    
+    
+    //Getters
+    public Path getStatementFilepath(Bank bank) throws InvalidInputException {
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to save in to get StatementPath");
+        }
+        return bank.getStatementPath();
+    }
+    public Map<Integer, AccountCurrent> listAccounts(Bank bank) throws InvalidInputException {
+        if (bank == null) {
+            throw new InvalidInputException("Insert a valid bank to insert a account");
+        }
 
+        return bank.getAllAccounts();
+
+    }
+
+    //Setters
     public void insertAccount(Bank bank, AccountCurrent account) throws IOException, InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to list");
@@ -39,15 +58,7 @@ public class BankService {
 
     }
 
-    public Map<Integer, AccountCurrent> listAccounts(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to insert a account");
-        }
-
-        return bank.getAllAccounts();
-
-    }
-
+    //Methods
     public AccountCurrent searchAccount(Bank bank, int id) throws InvalidInputException {
         if (id <= 0) {
             throw new InvalidInputException("Insert a valid Id to search a account in the bank, the id have to be a positive number");
@@ -59,7 +70,6 @@ public class BankService {
         return bank.getAccountById(id);
 
     }
-
     public int size(Bank bank) throws InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to search within itself");
@@ -67,7 +77,6 @@ public class BankService {
         return bank.getSize();
 
     }
-
     public boolean refresh(Bank bank) throws InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to search within itself");
@@ -80,21 +89,12 @@ public class BankService {
         }
 
     }
-
     public void saveAccounts(Bank bank) throws IOException, InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to save in to file");
         }
         bank.saveAllAccountstToFile();
     }
-
-    public Path getStatementFilepath(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to save in to get StatementPath");
-        }
-        return bank.getStatementPath();
-    }
-
     public void updateStatement(Bank bank, AccountCurrent account, String message) throws IOException, InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to get the Statement Path");
@@ -110,4 +110,6 @@ public class BankService {
         Files.writeString(bank.getStatementPath(), "["+ date.toString() + "] - Account: " + account.getId() + "; Holder: "+ account.getHolder() +"; Balance: " + account.getBalance() + "; [Operation: " + message + "]" +"\n", StandardOpenOption.APPEND);
         
     }
+    
+    
 }

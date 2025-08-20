@@ -64,12 +64,10 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         }
         listAccountsPanel.revalidate();
         listAccountsPanel.repaint();
-        
+
         backBtn.addActionListener(e -> dispose());
 
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,7 +123,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                 .addComponent(backBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AnalyticBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(BalanceSumOfAccountsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -137,7 +135,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                     .addGroup(rightBtnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(AnalyticBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BalanceSumOfAccountsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -202,7 +200,17 @@ public class ListAccountsGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_searchAccountTxtActionPerformed
 
     private void AnalyticBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalyticBtnActionPerformed
-        // TODO add your handling code here:
+        java.awt.Window owner = javax.swing.SwingUtilities.getWindowAncestor(this);
+        AnalytcPopupGUI dlg = new AnalytcPopupGUI(
+                owner instanceof java.awt.Frame ? (java.awt.Frame) owner : null,
+                true // modal
+        );
+        dlg.pack();
+        java.awt.Point p = AnalyticBtn.getLocationOnScreen();
+        dlg.setLocation(p.x, p.y + AnalyticBtn.getHeight() + 4);
+        
+        dlg.setVisible(true);
+        dlg.dispose();
     }//GEN-LAST:event_AnalyticBtnActionPerformed
 
     private void BalanceSumOfAccountsTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BalanceSumOfAccountsTxtActionPerformed
