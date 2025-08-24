@@ -15,6 +15,9 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.awt.Dimension;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
 import javax.swing.SwingConstants;
 
 /**
@@ -26,45 +29,28 @@ public class ListAccountsGUI extends javax.swing.JDialog {
     private final Bank bank;
     private final AccountService accountService;
     private final BankService bankService;
-
+    public Map<String, Boolean> flags;
     /**
      * Creates new form ListAccountsGUI
      */
     public ListAccountsGUI(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
+        flags = new java.util.LinkedHashMap<>();
+        flags.put("balanceGrouper", false);
+        flags.put("highBalanceFilter", false);
         this.bank = bank;
         this.accountService = accountService;
         this.bankService = bankService;
 
-        initComponents();
+        
         getRootPane().registerKeyboardAction(
                 e -> dispose(),
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
-        listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
-
-        listAccountsPanel.removeAll();
-        try {
-            Map<Integer, AccountCurrent> accounts = bankService.listAccounts(bank);
-            accounts.forEach((id, account) -> {
-                JButton btn = new JButton("Account " + id + " - " + account.getHolder());
-                btn.setAlignmentX(Component.LEFT_ALIGNMENT);
-                btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, btn.getPreferredSize().height));
-                btn.setHorizontalAlignment(SwingConstants.LEFT);
-                btn.addActionListener(ev -> {
-                    EditAccountGUI edit = new EditAccountGUI((java.awt.Frame) this.getParent(), true, account, bank, bankService, accountService);
-                    edit.setVisible(true);
-                });
-
-                listAccountsPanel.add(btn);
-                listAccountsPanel.add(Box.createVerticalStrut(8));
-            });
-        } catch (InvalidInputException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
-        }
-        listAccountsPanel.revalidate();
-        listAccountsPanel.repaint();
-
+        
+        initComponents();
+        initializer(flags);
+        
         backBtn.addActionListener(e -> dispose());
 
     }
@@ -89,6 +75,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         conteinerContent = new javax.swing.JPanel();
         conteinerScrollList = new javax.swing.JScrollPane();
         listAccountsPanel = new javax.swing.JPanel();
+        SumBalanceOfAccountstxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("List Account");
@@ -107,6 +94,9 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         });
 
         BalanceSumOfAccountsTxt.setEditable(false);
+        BalanceSumOfAccountsTxt.setAutoscrolls(false);
+        BalanceSumOfAccountsTxt.setEnabled(false);
+        BalanceSumOfAccountsTxt.setFocusable(false);
         BalanceSumOfAccountsTxt.setPreferredSize(new java.awt.Dimension(150, 26));
         BalanceSumOfAccountsTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +113,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                 .addComponent(backBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AnalyticBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(BalanceSumOfAccountsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -135,7 +125,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
                     .addGroup(rightBtnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(AnalyticBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BalanceSumOfAccountsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                    .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -171,20 +161,29 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
         conteinerScrollList.setViewportView(listAccountsPanel);
 
+        SumBalanceOfAccountstxt.setEditable(false);
+        SumBalanceOfAccountstxt.setAutoscrolls(false);
+        SumBalanceOfAccountstxt.setEnabled(false);
+        SumBalanceOfAccountstxt.setFocusable(false);
+
         javax.swing.GroupLayout conteinerContentLayout = new javax.swing.GroupLayout(conteinerContent);
         conteinerContent.setLayout(conteinerContentLayout);
         conteinerContentLayout.setHorizontalGroup(
             conteinerContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conteinerContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(conteinerScrollList, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addGroup(conteinerContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(conteinerScrollList, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(SumBalanceOfAccountstxt))
                 .addContainerGap())
         );
         conteinerContentLayout.setVerticalGroup(
             conteinerContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conteinerContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(conteinerScrollList, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(conteinerScrollList, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SumBalanceOfAccountstxt, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -195,6 +194,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void searchAccountTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchAccountTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchAccountTxtActionPerformed
@@ -203,16 +203,76 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         java.awt.Window owner = javax.swing.SwingUtilities.getWindowAncestor(this);
         AnalytcPopupGUI dlg = new AnalytcPopupGUI(
                 owner instanceof java.awt.Frame ? (java.awt.Frame) owner : null,
-                true // modal
+                true,
+                flags
+                
         );
         dlg.pack();
         java.awt.Point p = AnalyticBtn.getLocationOnScreen();
         dlg.setLocation(p.x, p.y + AnalyticBtn.getHeight() + 4);
-        
+
         dlg.setVisible(true);
+        initializer(flags);
         dlg.dispose();
     }//GEN-LAST:event_AnalyticBtnActionPerformed
+    public void initializer(Map<String, Boolean> flags){
+        Integer sizeBank = bankService.size(bank);
+        BalanceSumOfAccountsTxt.setText("Bank Size: "+ sizeBank.toString());
+        SumBalanceOfAccountstxt.setText("Total balance in the Bank: "+ bankService.balanceSum(bank));
+        listAccountsPanel.setLayout(new javax.swing.BoxLayout(listAccountsPanel, javax.swing.BoxLayout.Y_AXIS));
+        listAccountsPanel.removeAll();
+        
+        Map<Integer, AccountCurrent> userView = bankService.listAccounts(bank);
+        userView.entrySet().stream()
+            .filter(globalFilter(flags))
+            .sorted(globalSorted(flags))
+            .map(e -> createButtonToAccount(e.getValue().getId(), e.getValue()))
+            .forEach((JButton btn) -> {
+                listAccountsPanel.add(btn);
+                listAccountsPanel.add(Box.createVerticalStrut(8));
+            });
 
+        listAccountsPanel.revalidate();
+        listAccountsPanel.repaint();
+    }
+    
+    private JButton createButtonToAccount(int id, AccountCurrent account) {
+        double balance = account.getBalance();
+        JButton btn = new JButton("Account: " + id + " - Holder: " + account.getHolder() + " - Balance: " + balance);
+        btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, btn.getPreferredSize().height));
+        btn.setHorizontalAlignment(SwingConstants.LEFT);
+        btn.addActionListener(ev -> {
+            EditAccountGUI edit = new EditAccountGUI((java.awt.Frame) this.getParent(), true, account, bank, bankService, accountService);
+            edit.setVisible(true);
+        });
+        return btn;
+    }
+
+    private Predicate<? super Map.Entry<Integer, AccountCurrent>> globalFilter(Map<String, Boolean> flags) {
+        final boolean onlyHigh = flags.getOrDefault("highBalanceFilter", false);
+        Predicate<Map.Entry<Integer, AccountCurrent>> p = e -> true;
+        
+        if(onlyHigh){
+            p = p.and(e -> e.getValue() != null && e.getValue().getBalance() >= 10000.0); // seta os saldos com 10k de saldo
+        }
+        return p;   
+    }
+
+    private Comparator<? super Map.Entry<Integer, AccountCurrent>> globalSorted(Map<String, Boolean> flags) {
+        final boolean balanceGrouper = flags.getOrDefault("balanceGrouper", false);
+        Predicate<Map.Entry<Integer, AccountCurrent>> p = e -> true;
+        
+        if(balanceGrouper){
+                return Comparator
+                    .comparingDouble((Map.Entry<Integer, AccountCurrent> e) -> e.getValue().getBalance())
+                    .reversed()
+                    .thenComparing(Map.Entry::getKey);
+        } else{
+            return Comparator.comparing(Map.Entry::getKey);
+        }
+    }
+        
     private void BalanceSumOfAccountsTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BalanceSumOfAccountsTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BalanceSumOfAccountsTxtActionPerformed
@@ -224,6 +284,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton AnalyticBtn;
     private javax.swing.JTextField BalanceSumOfAccountsTxt;
+    private javax.swing.JTextField SumBalanceOfAccountstxt;
     private javax.swing.JButton backBtn;
     private javax.swing.JPanel containerHeader;
     private javax.swing.JPanel conteiner;
@@ -234,4 +295,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
     private javax.swing.JPanel rightBtnsPanel;
     private javax.swing.JTextField searchAccountTxt;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }

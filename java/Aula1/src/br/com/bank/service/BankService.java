@@ -37,13 +37,8 @@ public class BankService {
         }
         return bank.getStatementPath();
     }
-    public Map<Integer, AccountCurrent> listAccounts(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to insert a account");
-        }
-
+    public Map<Integer, AccountCurrent> listAccounts(Bank bank) {
         return bank.getAllAccounts();
-
     }
 
     //Setters
@@ -70,12 +65,13 @@ public class BankService {
         return bank.getAccountById(id);
 
     }
-    public int size(Bank bank) throws InvalidInputException {
-        if (bank == null) {
-            throw new InvalidInputException("Insert a valid bank to search within itself");
-        }
+    public int size(Bank bank){
         return bank.getSize();
 
+    }
+    
+    public double balanceSum(Bank bank){
+        return bank.getSumBalances();
     }
     public boolean refresh(Bank bank) throws InvalidInputException {
         if (bank == null) {

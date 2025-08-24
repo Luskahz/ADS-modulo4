@@ -51,6 +51,12 @@ public final class Bank {
     public int getSize() {
         return bank.size();
     }
+    
+    public double getSumBalances(){
+        return bank.values().stream()
+                .mapToDouble(AccountCurrent::getBalance)
+                .sum();
+    }
     public Path getStatementPath() {
         return statementPath;
     }

@@ -4,18 +4,26 @@
  */
 package br.com.bank.view;
 
+import java.util.Map;
+
 /**
  *
  * @author cg3034186
  */
 public class AnalytcPopupGUI extends javax.swing.JDialog {
+    private Map<String, Boolean> flags;
+    
+    
 
     /**
      * Creates new form AnalytcPopupGUI
      */
-    public AnalytcPopupGUI(java.awt.Frame parent, boolean modal) {
+    public AnalytcPopupGUI(java.awt.Frame parent, boolean modal, Map<String, Boolean> flags) {
         super(parent, modal);
         initComponents();
+        this.flags = flags;
+        highAccountsFilterTggleBtn.setSelected(Boolean.TRUE.equals(flags.get("highBalanceFilter")));
+        groupWithBalanceTggleBtn.setSelected(Boolean.TRUE.equals(flags.get("balanceGrouper")));
     }
 
     /**
@@ -28,11 +36,6 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
     private void initComponents() {
 
         dialogContentPanel = new javax.swing.JPanel();
-        calcPanel = new javax.swing.JPanel();
-        calcHeader = new javax.swing.JPanel();
-        calcConfigLabel = new javax.swing.JLabel();
-        calcBody = new javax.swing.JPanel();
-        sumBalancesTggleBtn = new javax.swing.JToggleButton();
         groupPanel = new javax.swing.JPanel();
         groupHeader = new javax.swing.JPanel();
         groupConfigLabel = new javax.swing.JLabel();
@@ -42,25 +45,11 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         filterHeader = new javax.swing.JPanel();
         filterConfigLabel = new javax.swing.JLabel();
         filterBody = new javax.swing.JPanel();
-        HighAccountsFilterTggleBtn = new javax.swing.JToggleButton();
+        highAccountsFilterTggleBtn = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         dialogContentPanel.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
-
-        calcPanel.setLayout(new java.awt.BorderLayout());
-
-        calcConfigLabel.setText("Calc Config");
-        calcHeader.add(calcConfigLabel);
-
-        calcPanel.add(calcHeader, java.awt.BorderLayout.PAGE_START);
-
-        sumBalancesTggleBtn.setText("Sum Balances");
-        calcBody.add(sumBalancesTggleBtn);
-
-        calcPanel.add(calcBody, java.awt.BorderLayout.CENTER);
-
-        dialogContentPanel.add(calcPanel);
 
         groupPanel.setLayout(new java.awt.BorderLayout());
 
@@ -88,13 +77,13 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
 
         filterPanel.add(filterHeader, java.awt.BorderLayout.PAGE_START);
 
-        HighAccountsFilterTggleBtn.setText(">10000 Balance");
-        HighAccountsFilterTggleBtn.addActionListener(new java.awt.event.ActionListener() {
+        highAccountsFilterTggleBtn.setText(">10000 Balance");
+        highAccountsFilterTggleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HighAccountsFilterTggleBtnActionPerformed(evt);
+                highAccountsFilterTggleBtnActionPerformed(evt);
             }
         });
-        filterBody.add(HighAccountsFilterTggleBtn);
+        filterBody.add(highAccountsFilterTggleBtn);
 
         filterPanel.add(filterBody, java.awt.BorderLayout.CENTER);
 
@@ -120,62 +109,15 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void HighAccountsFilterTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HighAccountsFilterTggleBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HighAccountsFilterTggleBtnActionPerformed
+    private void highAccountsFilterTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_highAccountsFilterTggleBtnActionPerformed
+        flags.put("highBalanceFilter", highAccountsFilterTggleBtn.isSelected());
+    }//GEN-LAST:event_highAccountsFilterTggleBtnActionPerformed
 
     private void groupWithBalanceTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupWithBalanceTggleBtnActionPerformed
-        // TODO add your handling code here:
+        flags.put("balanceGrouper", groupWithBalanceTggleBtn.isSelected());
     }//GEN-LAST:event_groupWithBalanceTggleBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AnalytcPopupGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AnalytcPopupGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AnalytcPopupGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AnalytcPopupGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AnalytcPopupGUI dialog = new AnalytcPopupGUI(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton HighAccountsFilterTggleBtn;
-    private javax.swing.JPanel calcBody;
-    private javax.swing.JLabel calcConfigLabel;
-    private javax.swing.JPanel calcHeader;
-    private javax.swing.JPanel calcPanel;
     private javax.swing.JPanel dialogContentPanel;
     private javax.swing.JPanel filterBody;
     private javax.swing.JLabel filterConfigLabel;
@@ -186,6 +128,6 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
     private javax.swing.JPanel groupHeader;
     private javax.swing.JPanel groupPanel;
     private javax.swing.JToggleButton groupWithBalanceTggleBtn;
-    private javax.swing.JToggleButton sumBalancesTggleBtn;
+    private javax.swing.JToggleButton highAccountsFilterTggleBtn;
     // End of variables declaration//GEN-END:variables
 }
