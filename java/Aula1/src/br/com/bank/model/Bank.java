@@ -4,11 +4,15 @@
  */
 package br.com.bank.model;
 
+import br.com.bank.dao.AccountCurrentDAO;
 import br.com.bank.exceptions.InvalidInputException;
+import java.sql.Connection;
+import br.com.bank.dao.Conexao;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,8 +82,20 @@ public final class Bank {
 
     //Methods
     public void saveAllAccountstToFile() throws IOException {
+        AccountCurrentDAO accountDAO = new AccountCurrentDAO();
+        
 
-        StringBuilder sb = new StringBuilder();
+        try(Connection conn = Conexao.getConnection()){
+           for(Map.Entry<Integer, AccountCurrent> entry : bank.entrySet()){
+               AccountCurrent ProcessAccount = entry.getValue();
+               AccountCurrent bankAccount = accountDAO.getAccount(ProcessAccount.getId());
+               
+           }
+            
+            
+        } catch (SQLException e) {
+            
+        }
 
         // cria o string de contas que vai ficar no cache, bem merda msm uma hora vai dar crash na memoriakk
         for (Map.Entry<Integer, AccountCurrent> entry : bank.entrySet()) {

@@ -1,7 +1,7 @@
 1;lucas;12000.0;
 2;mariana;120.0;
 3;joao;0.0;
-4;tiago;12.0;
 51;vitor;1.4196612134123E13;
+4;tiago;12.0;
 6;perrota;2.0;
 7;nelson;11990.0;
