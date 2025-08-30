@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Conexao {
     private static final String URL = "jdbc:mysql://localhost:3306/digitalBank?useSSL=false";
     private static final String USER = "root";
-    private static final String PASSWORD = "aluno";
+    private static final String PASSWORD = "Lucas_7276";
     
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
