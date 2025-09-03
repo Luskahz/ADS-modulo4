@@ -133,4 +133,22 @@ public class AccountCurrentDAO {
             return false;
         }
     }
+
+    public boolean deleteAccount(AccountCurrent account) {
+        String sql = "DELETE FROM digitalbank.accounts WHERE id = ?;";
+        try (Connection conn = Conexao.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, account.getId());
+            int lines = stmt.executeUpdate();
+            return lines > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Erro no banco de dados:\n" + e.getMessage(),
+                    "Database",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
+
+    }
 }

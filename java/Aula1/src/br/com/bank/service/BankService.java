@@ -106,6 +106,8 @@ public class BankService {
         Files.writeString(bank.getStatementPath(), "["+ date.toString() + "] - Account: " + account.getId() + "; Holder: "+ account.getHolder() +"; Balance: " + account.getBalance() + "; [Operation: " + message + "]" +"\n", StandardOpenOption.APPEND);
         
     }
-    
+    public void removeAccount(Bank bank, int id){
+        bank.removeAccount(id);
+    }
     
 }

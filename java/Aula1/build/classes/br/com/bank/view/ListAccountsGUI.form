@@ -66,7 +66,7 @@
                       <Component id="backBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="AnalyticBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                       <Component id="BalanceSumOfAccountsTxt" min="-2" pref="197" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -81,7 +81,7 @@
                               <Component id="AnalyticBtn" alignment="3" max="32767" attributes="0"/>
                               <Component id="BalanceSumOfAccountsTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="backBtn" max="32767" attributes="0"/>
+                          <Component id="backBtn" pref="27" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

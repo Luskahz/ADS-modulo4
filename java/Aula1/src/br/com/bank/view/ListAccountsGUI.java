@@ -243,7 +243,7 @@ public class ListAccountsGUI extends javax.swing.JDialog {
         btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, btn.getPreferredSize().height));
         btn.setHorizontalAlignment(SwingConstants.LEFT);
         btn.addActionListener(ev -> {
-            EditAccountGUI edit = new EditAccountGUI((java.awt.Frame) this.getParent(), true, account, bank, bankService, accountService);
+            EditAccountGUI edit = new EditAccountGUI((java.awt.Frame) this.getParent(), true, account, bank, bankService, accountService, this, flags);
             edit.setVisible(true);
         });
         return btn;

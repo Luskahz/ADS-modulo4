@@ -55,7 +55,11 @@ public final class Bank {
     public int getSize() {
         return bank.size();
     }
-
+    
+    public void removeAccount(int id){
+        bank.remove(id);
+    }
+    
     public double getSumBalances() {
         return bank.values().stream()
                 .mapToDouble(AccountCurrent::getBalance)
@@ -85,8 +89,23 @@ public final class Bank {
     //Methods
     public int saveAllAccountstToFile() throws IOException {
         AccountCurrentDAO accountDAO = new AccountCurrentDAO();
+        Map<Integer, AccountCurrent> dbAccounts = accountDAO.getAllAccounts();
         int updatesInAccounts = 0;
-
+        
+        for(Map.Entry<Integer, AccountCurrent> bankAccount : dbAccounts.entrySet()){
+            AccountCurrent a = getAccountById(bankAccount.getKey());
+            boolean exists = true;
+            if(a != null){
+                continue;
+            } else {
+                exists = false;
+            }
+            
+            if(!exists){
+                accountDAO.deleteAccount(bankAccount.getValue());
+            }
+        }
+        
         try (Connection conn = Conexao.getConnection()) {
             for (Map.Entry<Integer, AccountCurrent> entry : bank.entrySet()) {
                 AccountCurrent bankAccount = entry.getValue();

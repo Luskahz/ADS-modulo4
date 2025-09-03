@@ -11,6 +11,7 @@ import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
 import br.com.bank.service.BankService;
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,6 +23,8 @@ import javax.swing.JOptionPane;
 public class EditAccountGUI extends javax.swing.JDialog {
 
     private final Bank bank;
+    private final ListAccountsGUI list;
+    public Map<String, Boolean> flags;
     private final AccountCurrent account;
     private final AccountService accountService;
     private final BankService bankService;
@@ -29,12 +32,14 @@ public class EditAccountGUI extends javax.swing.JDialog {
     private String holder;
     private double balance;
 
-    public EditAccountGUI(java.awt.Frame parent, boolean modal, AccountCurrent account, Bank bank, BankService bankService, AccountService accountService) {
+    public EditAccountGUI(java.awt.Frame parent, boolean modal, AccountCurrent account, Bank bank, BankService bankService, AccountService accountService, ListAccountsGUI list, Map<String, Boolean> flags) {
         super(parent, modal);
         this.bank = bank;
         this.account = account;
         this.bankService = bankService;
         this.accountService = accountService;
+        this.list = list;
+        this.flags = flags;
         initComponents();
 
         try {
@@ -69,6 +74,7 @@ public class EditAccountGUI extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         VoltarBtn = new javax.swing.JButton();
+        ExcluirContaBtn = new javax.swing.JButton();
         Center = new javax.swing.JPanel();
         container = new javax.swing.JPanel();
         accountInformationsPanel = new javax.swing.JPanel();
@@ -119,6 +125,14 @@ public class EditAccountGUI extends javax.swing.JDialog {
             }
         });
         Header.add(VoltarBtn);
+
+        ExcluirContaBtn.setText("Excluir Conta");
+        ExcluirContaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirContaBtnActionPerformed(evt);
+            }
+        });
+        Header.add(ExcluirContaBtn);
 
         getContentPane().add(Header, java.awt.BorderLayout.PAGE_START);
 
@@ -191,7 +205,7 @@ public class EditAccountGUI extends javax.swing.JDialog {
                 .addGroup(accountInformationsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atualBalanceLabel)
                     .addComponent(atualBalanceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         accountInformationsPanel.add(accountInformationsContent, java.awt.BorderLayout.CENTER);
@@ -344,12 +358,28 @@ public class EditAccountGUI extends javax.swing.JDialog {
 
     }//GEN-LAST:event_depositConfirmBtnActionPerformed
 
+    private void ExcluirContaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirContaBtnActionPerformed
+        try {
+            bankService.removeAccount(bank, accountService.getId(account));
+        } catch (InvalidInputException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "we can't remove this account, try again later" + e.getMessage(),
+                    "Run error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        dispose();
+        list.initializer(flags);
+    }//GEN-LAST:event_ExcluirContaBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Center;
+    private javax.swing.JButton ExcluirContaBtn;
     private javax.swing.JPanel Header;
     private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel accountIdLabel;

@@ -61,6 +61,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VoltarBtnActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="ExcluirContaBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Excluir Conta"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExcluirContaBtnActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="Center">
@@ -230,7 +238,7 @@
                                   <Component id="atualBalanceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="atualBalanceTxt" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="146" max="32767" attributes="0"/>
+                              <EmptySpace pref="148" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

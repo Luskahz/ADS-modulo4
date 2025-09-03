@@ -335,3 +335,5 @@
 [Sun Aug 24 12:30:30 GMT-03:00 2025] - Account: 21; Holder: mari; Balance: 1.4196612134123E13; [Operation: Withdraw of $1.200000999E14; Previous balance: $1.34196712034123E14]
 [Sat Aug 30 18:05:38 GMT-03:00 2025] - Account: 3; Holder: zuleide alves; Balance: 99988.0; [Operation: Withdraw of $12.0; Previous balance: $100000.0]
 [Sat Aug 30 18:05:38 GMT-03:00 2025] - Account: 3; Holder: zuleide alves; Balance: 99976.0; [Operation: Withdraw of $12.0; Previous balance: $99988.0]
+[Tue Sep 02 20:18:02 BRT 2025] - Account: 4; Holder: Vitor Ramos; Balance: 98971.0; [Operation: Withdraw of $1029.0; Previous balance: $100000.0]
+[Tue Sep 02 20:18:06 BRT 2025] - Account: 4; Holder: Vitor Ramos; Balance: 111283.0; [Operation: Deposit of $12312.0; Previous balance: $98971.0]
