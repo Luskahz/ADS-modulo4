@@ -1,2 +1,0 @@
-1;lucas;56000.0;
-2;mariana Granerr mota;20000.0;
