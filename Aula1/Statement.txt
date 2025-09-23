@@ -359,3 +359,5 @@
 [Tue Sep 23 02:14:10 BRT 2025] - Account: 2; Holder: Lucas Alves; Balance: 13800.0; [Operation: Deposit of $2000.0; Previous balance: $11800.0]
 [Tue Sep 23 18:01:11 BRT 2025] - Account: 6; Holder: lucas; Balance: 19645.2; [Operation: Deposit of $10000.0; Previous balance: $9645.2]
 [Tue Sep 23 18:01:59 BRT 2025] - Account: 6; Holder: lucas; Balance: 18645.2; [Operation: Withdraw of $1000.0; Previous balance: $19645.2]
+[Tue Sep 23 18:45:42 BRT 2025] - Account: 14; Holder: arthur; Balance: 8009.0; [Operation: Withdraw of $1000.0; Previous balance: $9009.0]
+[Tue Sep 23 18:45:48 BRT 2025] - Account: 14; Holder: arthur; Balance: 9009.0; [Operation: Deposit of $1000.0; Previous balance: $8009.0]

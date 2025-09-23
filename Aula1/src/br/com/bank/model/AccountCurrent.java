@@ -18,7 +18,7 @@ public class AccountCurrent extends Account {
         if (value > super.getBalance()) {
             throw new InsufficientBalanceException("Insufficient balance to perform the withdrawal action...");
         }
-        // não altera o saldo, só valida
+       
     }
 
 }

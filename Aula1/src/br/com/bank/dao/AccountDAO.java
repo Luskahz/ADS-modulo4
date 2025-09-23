@@ -141,11 +141,11 @@ public class AccountDAO {
 
             stmt.setString(1, holder);
             stmt.setInt(2, account.getId());
-            int rows = stmt.executeUpdate();  // executa 1 vez
+            int rows = stmt.executeUpdate();
 
             if (rows > 0) {
                 dbAccount = true;
-                account.setHolder(holder); // sincroniza objeto em memória
+                account.setHolder(holder);
             }
 
         } catch (SQLException e) {
@@ -303,9 +303,8 @@ public class AccountDAO {
                 + "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConnection()) {
-            conn.setAutoCommit(false); // tudo ou nada
+            conn.setAutoCommit(false);
 
-            // Atualiza saldo
             try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                 updateStmt.setDouble(1, newBalance);
                 updateStmt.setInt(2, account.getId());
@@ -315,7 +314,7 @@ public class AccountDAO {
                 }
             }
 
-            // Insere log
+            
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
                 insertStmt.setInt(1, account.getId());
                 insertStmt.setString(2, account.getTaxationStrategy().name());
@@ -329,7 +328,6 @@ public class AccountDAO {
                 }
             }
 
-            // Atualiza em memória só após commit
             conn.commit();
             account.setBalance(newBalance);
             return true;
