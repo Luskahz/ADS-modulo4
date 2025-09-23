@@ -201,11 +201,8 @@ public final class ListAccountsGUI extends javax.swing.JDialog {
         );
         dlg.pack();
         dlg.setLocationRelativeTo(null);
-        this.setVisible(false);
         dlg.setVisible(true);
-        this.setVisible(true);
         initializer(statesList);
-        this.setVisible(false);
         dlg.dispose();
     }//GEN-LAST:event_AnalyticBtnActionPerformed
     public void initializer(AccountListStatesStrategy statesList) {

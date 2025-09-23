@@ -32,8 +32,6 @@ public class BankService {
     public BankDAO getBankDAO() {
         return bankDAO;
     }
-    
-    
 
     //Constructor
     public Bank createBank(String pathStringBank, String pathStringStatement) throws IOException {
@@ -68,10 +66,10 @@ public class BankService {
     }
 
     public void removeAccount(Bank bank, int id) {
-        if(accountDAO.deleteAccount(id, bank)){
+        if (accountDAO.deleteAccount(id, bank)) {
             bank.removeAccount(id);
         }
-        
+
     }
 
     //Methods
@@ -133,11 +131,14 @@ public class BankService {
         Instant lastApplication = bankDAO.getLastTaxationApplication();
         Instant now = Instant.now();
 
-        long diffInMillis = (lastApplication != null)
-                ? Duration.between(lastApplication, now).toMillis()
-                : 0L;
+        int applyTaxHowManyTimes;
 
-        int applyTaxHowManyTimes = (int) (diffInMillis / bank.getTimeToAppliTaxinMills());
+        if (lastApplication == null) {
+            applyTaxHowManyTimes = 1;
+        } else {
+            long diffInMillis = Duration.between(lastApplication, now).toMillis();
+            applyTaxHowManyTimes = (int) (diffInMillis / bank.getTimeToAppliTaxinMills());
+        }
 
         if (applyTaxHowManyTimes <= 0) {
             return false;
@@ -146,15 +147,16 @@ public class BankService {
         for (Account account : bank.getAllAccounts().values()) {
             accountDAO.applyFeeInAccount(account, applyTaxHowManyTimes);
         }
+
         return bankDAO.insertTaxationRegister(now);
     }
-    
-    public boolean saveAccountsToFile(Bank bank) throws InvalidInputException{
+
+    public boolean saveAccountsToFile(Bank bank) throws InvalidInputException {
         if (bank == null) {
             throw new InvalidInputException("Insert a valid bank to list");
         }
         return bank.saveAllAccountsToFile();
-        
+
     }
 
 }

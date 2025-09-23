@@ -120,7 +120,7 @@ private void createDynamicComparatorButtons() {
 
         groupPanel.setLayout(new java.awt.BorderLayout());
 
-        groupConfigLabel.setText("Group Config");
+        groupConfigLabel.setText("Comparators");
         groupHeader.add(groupConfigLabel);
 
         groupPanel.add(groupHeader, java.awt.BorderLayout.PAGE_START);
@@ -130,7 +130,7 @@ private void createDynamicComparatorButtons() {
 
         filterPanel.setLayout(new java.awt.BorderLayout());
 
-        filterConfigLabel.setText("Filter Config");
+        filterConfigLabel.setText("Predicates");
         filterHeader.add(filterConfigLabel);
 
         filterPanel.add(filterHeader, java.awt.BorderLayout.PAGE_START);

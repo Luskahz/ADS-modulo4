@@ -31,7 +31,7 @@ public final class Bank {
     private final Path statementPath;
     private final BankDAO bankDAO = new BankDAO();
     private final AccountDAO accountDAO = new AccountDAO();
-    private int timeToAppliTaxinMills = 30000;
+    private int timeToAppliTaxinMills = 30000; 
 
     //Constructor
     public Bank(Path path, Path statementPath) throws IOException {

@@ -27,14 +27,9 @@ public class Conexao {
 /*
 
 
-create database if not exists digitalBank;
 
-create table digitalBank.`transactions`(
-	id_transaction bigint primary key auto_increment , 
-    id_account_debit bigint,
-    id_account_credit bigint,
-    `value` decimal(10,2)
-);
+create database if not exists digitalBank;
+use digitalBank;
 
 CREATE TABLE digitalBank.taxation_register_global_accounts (
     id_taxation BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +53,7 @@ create table digitalBank.accounts (
     type_account varchar(25) not null
 
 );
-
+drop table digitalBank.account_statements;
 CREATE TABLE digitalBank.account_statements (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     account_id BIGINT NOT NULL,
@@ -66,10 +61,13 @@ CREATE TABLE digitalBank.account_statements (
     description TEXT NOT NULL,
     previous_balance DECIMAL(15,2) NOT NULL,
     new_balance DECIMAL(15,2) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (account_id) REFERENCES accounts(id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
+select * from accounts;
+select * from account_statements;
+select * from taxation_register_individual_account;
+select * from taxation_register_global_accounts;
 
 */
