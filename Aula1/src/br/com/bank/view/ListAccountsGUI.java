@@ -231,8 +231,7 @@ public final class ListAccountsGUI extends javax.swing.JDialog {
     }
 
     private JButton createButtonToAccount(int id, Account account) {
-        double balance = account.getBalance();
-        JButton btn = new JButton("Account: " + id + " - Holder: " + account.getHolder() + " - Balance: " + balance + " -- " + account.getTaxationStrategy().name());
+        JButton btn = new JButton(id + " - " + account.getHolder() + " - Balance: " + String.format("%.2f", account.getBalance()) + " -- Account " + account.getTaxationStrategy().name());
         btn.setAlignmentX(Component.LEFT_ALIGNMENT);
         btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, btn.getPreferredSize().height));
         btn.setHorizontalAlignment(SwingConstants.LEFT);

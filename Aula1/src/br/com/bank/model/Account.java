@@ -15,7 +15,6 @@ public abstract class Account {
     private int id;
     private String holder;
     private double balance;
-    private String type;
     private TaxationStrategy taxationStrategy;
 
     //construtor
@@ -50,6 +49,9 @@ public abstract class Account {
     }
     public void setBalance(double value) {
         this.balance = value;
+    }
+    public void setTaxationStrategy(TaxationStrategy taxationStrategy) {
+        this.taxationStrategy = taxationStrategy;
     }
     
     

@@ -4,7 +4,6 @@
  */
 package br.com.bank.view;
 
-import br.com.bank.dao.BankDAO;
 import br.com.bank.exceptions.InvalidInputException;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
@@ -24,7 +23,6 @@ public class HomePageGUI extends javax.swing.JFrame {
     private final Bank bank;
     private final AccountService accountService;
     private final BankService bankService;
-    private final BankDAO bankDAO = new BankDAO();
 
     public HomePageGUI(Bank bank, AccountService accountService, BankService bankService) {
         this.bank = Objects.requireNonNull(bank);
@@ -104,11 +102,8 @@ public class HomePageGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLeaveFromApplication(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLeaveFromApplication
-
         try {
-            bankService.saveAccounts(bank);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+            bankService.saveAccountsToFile(bank);
         } catch (InvalidInputException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Invalid Input Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -118,25 +113,25 @@ public class HomePageGUI extends javax.swing.JFrame {
 
     private void bntCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCreateAccountActionPerformed
         this.setVisible(false);
-        
+
         CreateAccountGUI dialog = new CreateAccountGUI(this, true, bank, accountService, bankService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
-        
-        this.setVisible(true);  
+
+        this.setVisible(true);
     }//GEN-LAST:event_bntCreateAccountActionPerformed
 
     private void btnListAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListAccountsActionPerformed
         this.setVisible(false);
         try {
-            bankDAO.applyFeeInBank(bank);
+            bankService.applyFee(bank);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Fee applycation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Fee applycation Error - SQL error", JOptionPane.ERROR_MESSAGE);
         }
         ListAccountsGUI dialog = new ListAccountsGUI(this, true, bank, accountService, bankService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
-        
+
         this.setVisible(true);
     }//GEN-LAST:event_btnListAccountsActionPerformed
 

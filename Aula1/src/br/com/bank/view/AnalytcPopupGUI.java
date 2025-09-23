@@ -4,18 +4,23 @@
  */
 package br.com.bank.view;
 
+import br.com.bank.model.Account;
 import br.com.bank.stategy.enumstrategy.AccountListStatesStrategy;
 import br.com.bank.stategy.comparator.AccountListComparators;
 import br.com.bank.stategy.predicate.AccountListPredicates;
+import java.lang.reflect.Field;
+import java.util.function.Predicate;
+import java.util.Comparator;
+import javax.swing.*;
 
 /**
  *
  * @author cg3034186
  */
-public class AnalytcPopupGUI extends javax.swing.JDialog {
+
+public final class AnalytcPopupGUI extends javax.swing.JDialog {
+
     private final AccountListStatesStrategy stateList;
-    
-    
 
     /**
      * Creates new form AnalytcPopupGUI
@@ -24,11 +29,71 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         super(parent, modal);
         this.stateList = stateList;
         initComponents();
-        
         setLocationRelativeTo(null);
-        highAccountsFilterTggleBtn.setSelected(stateList.isPredicateActive(AccountListPredicates.BALANCE_OVER_5000));
-        groupWithBalanceTggleBtn.setSelected(stateList.isComparatorActive(AccountListComparators.ORDER_BY_BALANCE_DESC));
+
+        createDynamicPredicateButtons();
+        createDynamicComparatorButtons();
     }
+
+private void createDynamicPredicateButtons() {
+    try {
+        for (Field field : AccountListPredicates.class.getDeclaredFields()) {
+            if (Predicate.class.isAssignableFrom(field.getType())) {
+                String name = field.getName();
+                JToggleButton btn = new JToggleButton(name);
+
+                btn.setSelected(stateList.isPredicateActive(
+                        (Predicate<Account>) field.get(null)
+                ));
+
+                btn.addActionListener(e -> {
+                    try {
+                        Predicate<Account> predicate = (Predicate<Account>) field.get(null);
+                        stateList.togglePredicate(predicate);
+                    } catch (IllegalAccessException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
+                filterBody.add(btn);
+            }
+        }
+        filterBody.revalidate();
+        filterBody.repaint();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+private void createDynamicComparatorButtons() {
+    try {
+        for (Field field : AccountListComparators.class.getDeclaredFields()) {
+            if (Comparator.class.isAssignableFrom(field.getType())) {
+                String name = field.getName();
+                JToggleButton btn = new JToggleButton(name);
+
+                btn.setSelected(stateList.isComparatorActive(
+                        (Comparator<Account>) field.get(null)
+                ));
+
+                btn.addActionListener(e -> {
+                    try {
+                        Comparator<Account> comp = (Comparator<Account>) field.get(null);
+                        stateList.toggleComparator(comp);
+                    } catch (IllegalAccessException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
+                groupBody.add(btn);
+            }
+        }
+        groupBody.revalidate();
+        groupBody.repaint();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,12 +109,10 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         groupHeader = new javax.swing.JPanel();
         groupConfigLabel = new javax.swing.JLabel();
         groupBody = new javax.swing.JPanel();
-        groupWithBalanceTggleBtn = new javax.swing.JToggleButton();
         filterPanel = new javax.swing.JPanel();
         filterHeader = new javax.swing.JPanel();
         filterConfigLabel = new javax.swing.JLabel();
         filterBody = new javax.swing.JPanel();
-        highAccountsFilterTggleBtn = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -61,15 +124,6 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         groupHeader.add(groupConfigLabel);
 
         groupPanel.add(groupHeader, java.awt.BorderLayout.PAGE_START);
-
-        groupWithBalanceTggleBtn.setText("Group with Balance");
-        groupWithBalanceTggleBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                groupWithBalanceTggleBtnActionPerformed(evt);
-            }
-        });
-        groupBody.add(groupWithBalanceTggleBtn);
-
         groupPanel.add(groupBody, java.awt.BorderLayout.CENTER);
 
         dialogContentPanel.add(groupPanel);
@@ -80,15 +134,6 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         filterHeader.add(filterConfigLabel);
 
         filterPanel.add(filterHeader, java.awt.BorderLayout.PAGE_START);
-
-        highAccountsFilterTggleBtn.setText(">10000 Balance");
-        highAccountsFilterTggleBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                highAccountsFilterTggleBtnActionPerformed(evt);
-            }
-        });
-        filterBody.add(highAccountsFilterTggleBtn);
-
         filterPanel.add(filterBody, java.awt.BorderLayout.CENTER);
 
         dialogContentPanel.add(filterPanel);
@@ -113,14 +158,6 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void highAccountsFilterTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_highAccountsFilterTggleBtnActionPerformed
-        stateList.togglePredicate(AccountListPredicates.BALANCE_OVER_5000);
-    }//GEN-LAST:event_highAccountsFilterTggleBtnActionPerformed
-
-    private void groupWithBalanceTggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupWithBalanceTggleBtnActionPerformed
-        stateList.toggleComparator(AccountListComparators.ORDER_BY_BALANCE_DESC);
-    }//GEN-LAST:event_groupWithBalanceTggleBtnActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dialogContentPanel;
     private javax.swing.JPanel filterBody;
@@ -131,7 +168,5 @@ public class AnalytcPopupGUI extends javax.swing.JDialog {
     private javax.swing.JLabel groupConfigLabel;
     private javax.swing.JPanel groupHeader;
     private javax.swing.JPanel groupPanel;
-    private javax.swing.JToggleButton groupWithBalanceTggleBtn;
-    private javax.swing.JToggleButton highAccountsFilterTggleBtn;
     // End of variables declaration//GEN-END:variables
 }

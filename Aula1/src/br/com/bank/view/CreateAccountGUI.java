@@ -5,7 +5,6 @@
 package br.com.bank.view;
 
 import br.com.bank.exceptions.InvalidInputException;
-import br.com.bank.model.Account;
 import br.com.bank.model.Bank;
 import br.com.bank.service.AccountService;
 import br.com.bank.service.BankService;
@@ -21,7 +20,6 @@ public class CreateAccountGUI extends javax.swing.JDialog {
 
     private final Bank bank;
     private final AccountService accountService;
-    private final BankService bankService;
 
     /**
      * Creates new form CreateAccountGUI
@@ -29,7 +27,6 @@ public class CreateAccountGUI extends javax.swing.JDialog {
     public CreateAccountGUI(java.awt.Frame parent, boolean modal, Bank bank, AccountService accountService, BankService bankService) {
         super(parent, modal);
         this.bank = bank;
-        this.bankService = bankService;
         this.accountService = accountService;
         initComponents();
         getRootPane().registerKeyboardAction(
@@ -49,7 +46,6 @@ public class CreateAccountGUI extends javax.swing.JDialog {
     private void initComponents() {
 
         painelCreateAccount = new javax.swing.JPanel();
-        labelId = new javax.swing.JLabel();
         SavingToggleBtn = new javax.swing.JToggleButton();
         PayrollToggleBtn = new javax.swing.JToggleButton();
         CurrentToggleBtn = new javax.swing.JToggleButton();
@@ -60,14 +56,11 @@ public class CreateAccountGUI extends javax.swing.JDialog {
         labelBalance = new javax.swing.JLabel();
         txtHolder = new javax.swing.JTextField();
         labekHolder = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Account");
         setResizable(false);
         setSize(new java.awt.Dimension(480, 360));
-
-        labelId.setText("Number Account");
 
         SavingToggleBtn.setText("Saving");
         SavingToggleBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -118,13 +111,6 @@ public class CreateAccountGUI extends javax.swing.JDialog {
 
         labekHolder.setText("Holder");
 
-        txtId.setColumns(10);
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout painelCreateAccountLayout = new javax.swing.GroupLayout(painelCreateAccount);
         painelCreateAccount.setLayout(painelCreateAccountLayout);
         painelCreateAccountLayout.setHorizontalGroup(
@@ -146,20 +132,18 @@ public class CreateAccountGUI extends javax.swing.JDialog {
                 .addComponent(PayrollToggleBtn)
                 .addContainerGap())
             .addGroup(painelCreateAccountLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBalance, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtHolder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painelCreateAccountLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelId)
+                .addContainerGap()
+                .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCreateAccountLayout.createSequentialGroup()
+                        .addComponent(labelBalance)
+                        .addGap(35, 35, 35)
+                        .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelCreateAccountLayout.createSequentialGroup()
                         .addComponent(labekHolder)
-                        .addComponent(labelBalance))
-                    .addContainerGap(323, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelCreateAccountLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancel, btnSave});
@@ -167,32 +151,25 @@ public class CreateAccountGUI extends javax.swing.JDialog {
         painelCreateAccountLayout.setVerticalGroup(
             painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCreateAccountLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(txtHolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labekHolder)
+                    .addComponent(txtHolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelBalance)
+                    .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SavingToggleBtn)
                     .addComponent(PayrollToggleBtn)
                     .addComponent(labelBalance1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CurrentToggleBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(painelCreateAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painelCreateAccountLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(labelId)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(labekHolder)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(labelBalance)
-                    .addGap(278, 278, 278)))
         );
 
         painelCreateAccountLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancel, btnSave});
@@ -213,68 +190,71 @@ public class CreateAccountGUI extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
     private void txtHolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHolderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHolderActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Account account = null;
-        String id_txt = txtId.getText().trim();
         String holder_txt = txtHolder.getText().trim();
         String balance_txt = txtBalance.getText().trim();
         boolean current = CurrentToggleBtn.isSelected();
         boolean saving = SavingToggleBtn.isSelected();
         boolean payroll = PayrollToggleBtn.isSelected();
+
         Boolean[] states = {current, saving, payroll};
         long count = Arrays.stream(states).filter(b -> b).count();
 
-        if (id_txt.isEmpty() || holder_txt.isEmpty() || balance_txt.isEmpty()) {
+        if ( holder_txt.isEmpty() || balance_txt.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Pleas fill in the all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (count > 1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Pleas select one type of Account", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int id = Integer.parseInt(id_txt);
         double balance = Double.parseDouble(balance_txt);
         String type;
-        try {
-            if (current) {
-                type = "CURRENT";
-                account = accountService.createAccount(id, holder_txt, balance, type);
 
-            } else if (saving) {
-                type = "SAVING";
-                account = accountService.createAccount(id, holder_txt, balance, type);
-
-            } else if (payroll) {
-                type = "PAYROLL";
-                account = accountService.createAccount(id, holder_txt, balance, type);
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Please, the type of the account have to be selected", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (InvalidInputException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, The bank is not defined here", JOptionPane.ERROR_MESSAGE);
-
+        if (current) {
+            type = "CURRENT";
+        } else if (saving) {
+            type = "SAVING";
+        } else if (payroll) {
+            type = "PAYROLL";
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please, the type of the account have to be selected", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
         try {
-            if (account != null) {
-                bankService.insertAccount(bank, account);
+            boolean result = accountService.createAccount(bank, holder_txt, balance, type);
+
+            if (result) {
+                JOptionPane.showMessageDialog(this,
+                        "Account created successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                txtHolder.setText("");
+                txtBalance.setText("");
+                CurrentToggleBtn.setSelected(false);
+                SavingToggleBtn.setSelected(false);
+                PayrollToggleBtn.setSelected(false);
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Please, try again, have someting wrong with the insertion", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                JOptionPane.showMessageDialog(this,
+                        "The account could not be created. Try again.",
+                        "Warning",
+                        JOptionPane.WARNING_MESSAGE);
             }
-            JOptionPane.showMessageDialog(null, "Account Added with sucess");
-            dispose();
         } catch (InvalidInputException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, insert valid inputs to create a account", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Error during create account, invalid inputs: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error, not possible insert the account in the bank, valid what's goin on", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Error during create account, error when inserting in the bank: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -307,10 +287,8 @@ public class CreateAccountGUI extends javax.swing.JDialog {
     private javax.swing.JLabel labekHolder;
     private javax.swing.JLabel labelBalance;
     private javax.swing.JLabel labelBalance1;
-    private javax.swing.JLabel labelId;
     private javax.swing.JPanel painelCreateAccount;
     private javax.swing.JTextField txtBalance;
     private javax.swing.JTextField txtHolder;
-    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

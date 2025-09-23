@@ -1,7 +1,4 @@
-1;lucas;0.0;
-2;joao;1000.0;
-4;vitor;30000.0;
-5;mariana;5000.0;
-6;anna;4000.0;
-7;manuela;6000.0;
-10;ederson;98000.0;
+2;Lucas Alves;12439.2;CURRENT;
+3;Joao Gabriel;91000.0;SAVING;
+4;Mariana Graner;8000.0;PAYROLL;
+5;Manuela;10000.0;CURRENT;

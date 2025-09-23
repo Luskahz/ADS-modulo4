@@ -30,12 +30,7 @@ public class Main {
             try {
                 bank = bankService.createBank("Account.txt", "Statement.txt");
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Error, we can't create the bank to save the accounts, run after some minutes....\n" + e.getMessage(),
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                );
+                JOptionPane.showMessageDialog(null, "Error, we can't create the bank to save the accounts, run after some minutes....\n" + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
                 System.exit(1);
                 return;
             }
@@ -47,8 +42,8 @@ public class Main {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent evt) {
                     try {
-                        bankService.saveAccounts(bank);
-                    } catch (IOException | InvalidInputException ex) {
+                        bankService.saveAccountsToFile(bank);
+                    } catch (InvalidInputException ex) {
                         JOptionPane.showMessageDialog(home, "Error saving accounts: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
 
                     }

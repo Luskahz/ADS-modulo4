@@ -16,13 +16,9 @@ public class AccountCurrent extends Account {
     @Override
     public void withdraw(double value) throws InsufficientBalanceException {
         if (value > super.getBalance()) {
-            throw new InsufficientBalanceException("Sem saldo suficiente para realizar a acao de sacar...");
-        } else {
-            double newBalance = super.getBalance() - value;
-            super.setBalance(newBalance);
-
+            throw new InsufficientBalanceException("Insufficient balance to perform the withdrawal action...");
         }
-
+        // não altera o saldo, só valida
     }
 
 }

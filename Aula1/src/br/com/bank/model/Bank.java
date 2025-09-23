@@ -7,15 +7,13 @@ package br.com.bank.model;
 import br.com.bank.dao.AccountDAO;
 import br.com.bank.dao.BankDAO;
 import br.com.bank.exceptions.InvalidInputException;
-import java.sql.Connection;
-import br.com.bank.dao.Conexao;
+import br.com.bank.stategy.enumstrategy.TaxationStrategy;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLNonTransientConnectionException;
-import java.time.Instant;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +31,8 @@ public final class Bank {
     private final Path statementPath;
     private final BankDAO bankDAO = new BankDAO();
     private final AccountDAO accountDAO = new AccountDAO();
-    private int timeToAppliTaxinMills = 5000;
-    
+    private int timeToAppliTaxinMills = 30000;
+
     //Constructor
     public Bank(Path path, Path statementPath) throws IOException {
         this.bank = new HashMap<>();
@@ -53,7 +51,7 @@ public final class Bank {
             Files.createFile(statementPath);
         }
 
-        refreshAllAccountsWithFileorDb();
+        refreshAllAccountsWithFileOrDb();
 
     }
 
@@ -64,10 +62,6 @@ public final class Bank {
 
     public int getTimeToAppliTaxinMills() {
         return timeToAppliTaxinMills;
-    }
-    
-    public void removeAccount(int id) {
-        bank.remove(id);
     }
 
     public double getSumBalances() {
@@ -89,119 +83,96 @@ public final class Bank {
     }
 
     //Setters
-    public void addAccount(Account account) throws InvalidInputException {
+    public boolean addAccount(Account account) throws InvalidInputException {
         if (bank.containsKey(account.getId())) {
             throw new InvalidInputException("Já existe uma conta com esse ID.");
         }
         bank.put(account.getId(), account);
+        return true;
     }
 
-    //Methods
-    public int saveAllAccountsToDb() throws IOException{
-        int updatesInAccounts = 0;
-        try { // esse try deleta as contas, verifica se ela foi excluida durante a utulização do sistema, e se tiver sido, apaga ela do banco tbm
-            Map<Integer, Account> dbAccounts = bankDAO.getAllAccounts();
-            for (Map.Entry<Integer, Account> dbAccount : dbAccounts.entrySet()) {
-                Account AccountTe = getAccountById(dbAccount.getValue().getId());
-                if (AccountTe == null) {
-                    accountDAO.deleteAccount(dbAccount.getValue());
-                }
-            }
+    public boolean removeAccount(int id) {
+        return bank.remove(id) != null;
+    }
 
-            try (Connection conn = Conexao.getConnection()) {
-                for (Map.Entry<Integer, Account> entry : bank.entrySet()) {
-                    Account bankAccount = entry.getValue(); // conta que eexiste no bank
-                    Account dbAccount = accountDAO.getAccount(bankAccount.getId()); // conta se existir no bd
-                    if (dbAccount == null) {//se ele n achar a conta que está no bank no db
-                        boolean inserted = accountDAO.insertAccount(bankAccount); // ele tenta inserir a conta no banco
-                        if (inserted) {
-                            continue;
-                        }
-                    }
+    public boolean saveAllAccountsToFile() {
+        StringBuilder sb = new StringBuilder();
 
-                    if (!bankAccount.getHolder().equals(dbAccount.getHolder())) {
-                        int success;
-                        success = accountDAO.updateHolder(bankAccount.getId(), bankAccount.getHolder());
-                        if (success > 0) {
-                            updatesInAccounts++;
-                        }
-                    }
+        for (Map.Entry<Integer, Account> entry : bank.entrySet()) {
+            Account account = entry.getValue();
+            sb.append(account.getId()).append(";");
+            sb.append(account.getHolder()).append(";");
+            sb.append(account.getBalance()).append(";");
+            sb.append(account.getTaxationStrategy().name()).append(";\n");
+        }
 
-                    if (bankAccount.getBalance() != dbAccount.getBalance()) {
-                        int success = accountDAO.updateBalance(bankAccount.getId(), bankAccount.getBalance());
-                        if (success > 0) {
-                            updatesInAccounts++;
-                        }
-                    }
-                }
-            }
+        try {
+            Files.writeString(
+                    this.filepath,
+                    sb.toString(),
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING
+            );
+            return true; 
+        } catch (IOException e) {
+            e.printStackTrace(); 
+            return false; 
+        }
+    }
 
+    // ao abrir, tenta puxar do banco, se n der puxa do arquivo
+    public void refreshAllAccountsWithFileOrDb() throws IOException {
+        try {
+            Map<Integer, Account> dbBank = bankDAO.getAllAccounts();
+            bank.clear();
+            bank.putAll(dbBank);
+            saveAllAccountsToFile();
         } catch (SQLNonTransientConnectionException e) {
-            // Fallback → salvar no arquivo
-            StringBuilder sb = new StringBuilder();
-            for (Map.Entry<Integer, Account> entry : bank.entrySet()) {
-                Account account = entry.getValue();
-                sb.append(account.getId()).append(";");
-                sb.append(account.getHolder()).append(";");
-                sb.append(account.getBalance()).append(";");
-                sb.append(account.getTaxationStrategy().name()).append(";\n");
-            }
-
-            Files.writeString(this.filepath, sb.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-
+            loadAllAccountsFromFile();
             JOptionPane.showMessageDialog(
                     null,
-                    "Offline database, saving the accounts in the accounts.txt.",
+                    "Database offline, loading accounts from file.",
                     "Database",
                     JOptionPane.WARNING_MESSAGE
             );
 
         } catch (SQLException e) {
+            loadAllAccountsFromFile();
             JOptionPane.showMessageDialog(
                     null,
-                    "error when you try to save the acccounts, try again later\n" + e.getMessage(),
+                    "Error when refreshing accounts, loading from file instead.\n" + e.getMessage(),
                     "Database",
                     JOptionPane.ERROR_MESSAGE
             );
         }
-
-        return updatesInAccounts;
     }
 
-    public void refreshAllAccountsWithFileorDb() throws IOException {
-        Map<Integer, Account> dbBank = bankDAO.getAllAccounts();
+    //função que de fato puxa do arquivo
+    private void loadAllAccountsFromFile() throws IOException {
+        bank.clear();
 
-        if (dbBank.isEmpty()) {//falback
-            Map<Integer, AccountCurrent> tmp = new HashMap<>();
-            for (String line : Files.readAllLines(filepath)) {
-                String[] parts = line.split(";");
-                int id = Integer.parseInt(parts[0]);
-                double balance = Double.parseDouble(parts[2]);
-
-                AccountCurrent account = new AccountCurrent(id, parts[1], balance);
-                tmp.put(id, account);
+        for (String line : Files.readAllLines(filepath)) {
+            if (line.isBlank()) {
+                continue;
             }
 
-            bank.clear();
-            bank.putAll(tmp);
+            String[] parts = line.split(";");
+            int id = Integer.parseInt(parts[0]);
+            String holder = parts[1];
+            double balance = Double.parseDouble(parts[2]);
+            TaxationStrategy strategy = TaxationStrategy.valueOf(parts[3]);
 
-        } else {
-            bank.clear();
-            bank.putAll(dbBank);
+            Account account = switch (strategy) {
+                case CURRENT ->
+                    new AccountCurrent(id, holder, balance);
+                case SAVING ->
+                    new AccountSaving(id, holder, balance);
+                case PAYROLL ->
+                    new AccountPayroll(id, holder, balance);
+            };
+
+            bank.put(id, account);
         }
-
     }
-    
-    
-    
-    private void applyFee(){
-        Map<Integer, Account> dbBank = bankDAO.getAllAccounts();
-        Instant now = Instant.now();
-        
-        
-        
-      
-      
-    };
 
 }
